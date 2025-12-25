@@ -108,6 +108,8 @@ class newCircle {
 
         context.beginPath();    //begin drawing
         context.arc(this.x_pos, this.y_pos, 30, 0, Math.PI * 2, false)  //draws circle at x_pos, y_pos with radius 50
+        context.fillStyle = 'red';
+        context.fill();
         context.stroke();   //draws the outline of the circle
         context.closePath();    //ends drawing
     }
