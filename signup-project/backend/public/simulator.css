@@ -1,0 +1,83 @@
+
+
+#Button1{
+    background-color: rgb(255, 255, 255);
+    size: 100px, 100px;
+    font-size: larger ;
+    float: left
+}
+#Button1:hover{
+    background-color: rgb(191, 191, 191);
+    size: 100px, 100px;
+    font-size: larger ;
+    float: left
+}
+#Button2{
+    background-color: cadetblue;
+    size: 1000px, 1000px;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+#Quit_Button{
+    background-color: #00a3ff;
+    border: 10px, black;
+    width: 50px;
+    height: 25px;
+    position: fixed;
+    top: 10px;
+    right: 10px;
+
+}
+#Quit_Button:hover{
+    background-color: #0068a2;
+    border: 10px, black;
+    size: 100px, 75;
+    float: right;
+}
+#Button3{
+    background-color: rgb(255, 255, 255);
+    size: 500px, 500px;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+#Button3:hover{
+    background-color: rgb(192, 191, 191);
+    size: 500px, 500px;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+#Profile{
+    width: 100;
+    height: 300;
+    border-radius: 100%;
+    background-color: rgb(255, 255, 255);
+    float: right
+}
+
+#Draw{
+    float: left;
+    background-color: rgb(184, 255, 213);
+    width: 50;
+    height: 30;
+    border: 10px, black;
+}
+#Draw:hover{
+    float:left;
+    background-color: rgb(120, 165, 139);
+    width: 50;
+    height: 30;
+    border: 10px, black;
+}
+body {
+    cursor: url('starrail_arrow.png'), auto;
+}
+#GraphButton{
+    background-color: #ffc94c;
+    border: 10px, black;
+    width: 50px;
+    height: 50px;
+    position: fixed;
+    top: 10px;
+    right: 80px;
+}
+
+#GraphButton:hover{
+    background-color: #a17600;
+}
