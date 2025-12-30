@@ -285,3 +285,20 @@ body {
     rotate: -90deg;
     z-index: 10;
 }
+
+#speedKey {
+    position: absolute;
+    bottom: 50px;
+    left: 1300px;
+    font-size: 20x;
+    color: #ff0000;
+    z-index: 10;
+}
+#gravityKey {
+    position: absolute;
+    bottom: 10px;
+    left: 1300px;
+    font-size: 16px;
+    color: #0000ff;
+    z-index: 10;
+}

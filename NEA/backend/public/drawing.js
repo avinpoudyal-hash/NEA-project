@@ -3,6 +3,7 @@ var y_pos = 100
 var speed = 0
 elasticity = 0.6
 var Array_for_speed = []
+var Array_of_y_speed = []
 index = 0
 
 var isPaused = false;
@@ -102,7 +103,6 @@ class newCircle {
             this.speed = -this.speed * this.elasticity;
             this.x_pos = 29;
         }
-        this.speed.toFixed(2);
         Array_for_speed[index] = this.speed;
         index += 1;
         this.x_pos += this.speed;
@@ -149,6 +149,7 @@ ArrayButton.addEventListener("click", () => {  //Checks when the button is click
 const GraphButton = document.getElementById("GraphButton");
 GraphButton.addEventListener("click", () => {
     localStorage.setItem("SpeedArray", JSON.stringify(Array_for_speed));
+    localStorage.setItem("y_SpeedArray", JSON.stringify(Array_of_y_speed));
 });
 
 

@@ -1,9 +1,11 @@
 var graph_y_pos = 100;
 let graph_index = 0;
+let graph_index_y = 0;
 var graph_x_pos = 100;
 var count = 0;
 var point_1 = 340;
 let graph_Array_for_speed = JSON.parse(localStorage.getItem("SpeedArray"))
+let graph_Array_for_y_speed = JSON.parse(localStorage.getItem("y_SpeedArray"))
 var SpeedValue = 800;
 
 
@@ -85,6 +87,32 @@ class xAxis {
         }
 }
 }
+class graph_newCircle_yaxis {
+    constructor(graph_x_pos, graph_y_pos){   //constructor function to set up the circle
+    this.graph_y_pos = graph_y_pos
+    this.graph_x_pos = graph_x_pos
+    }
+    drawNew(graph_context){   //function to draw the circle
+        graph_context.beginPath();    //begin drawing
+        graph_context.arc(this.graph_x_pos, this.graph_y_pos, 4, 0, Math.PI * 2, false)
+        graph_context.fillStyle = 'blue';
+        graph_context.fill();
+        graph_context.strokeStyle = 'blue';
+        graph_context.stroke();   //draws the outline of the circle
+        graph_context.closePath();    //ends drawing
+    }
+    drawing(graph_context){
+        if (graph_Array_for_y_speed.length == 0) {
+            return;
+        }
+        while (graph_index_y < graph_Array_for_y_speed.length) {
+            this.graph_y_pos = 400 - (graph_Array_for_y_speed[graph_index_y] * 10);
+            graph_index_y += 1;
+            this.graph_x_pos += 4;
+        this.drawNew(graph_context);
+    }
+}
+}
 
 let drawWall = new newWall(100, 400, 1370, 1);
 let first_points = new newWall (340, 400, 1, 10);
@@ -95,10 +123,13 @@ let fifth_points = new newWall (1300, 400, 1, 10);
 let yaxis = new newWall (100, 0, 1, 800);
 let xaxis = new xAxis (90, 800, 10, 1);
 let graph_draw_circle = new graph_newCircle(graph_x_pos, graph_y_pos)    //creates a new circle object
+let graph_draw_circle_yaxis = new graph_newCircle_yaxis(graph_x_pos, graph_y_pos)    //creates a new circle object
+
 
 
 function moveCircle() {     //function to animate the circle
         requestAnimationFrame(moveCircle);      //calls moveCircle again for the next frame
+        graph_draw_circle_yaxis.drawing(graph_context);
         graph_draw_circle.drawing(graph_context);      // calls the movement function to update position and draw the circle
         first_points.drawNewWall(graph_context);
         second_points.drawNewWall(graph_context);

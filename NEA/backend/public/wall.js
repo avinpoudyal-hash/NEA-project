@@ -1,9 +1,9 @@
 var x_pos = 100
-var y_pos = 100
-var speed = 10
+var y_pos = 400
+var speed = 0
 var mass = 10
 let elasticity = 0.6
-let restitution = 8
+let restitution = 20
 let timer = 0
 let gravity = 0
 let friction = 0
@@ -11,7 +11,13 @@ let CircleDrawn = false
 friction = ((mass * 9.8) * restitution) / 60 //PER FRAME FRICTION DECREASING MOMENTUM   0.735
 momentum = (speed * mass) * 60 //INITIAL MOMENTUM   (assume speed = 12)  3600
 Momentum_decrease_via_friction = 0
-let Array_of_y_speed = []
+index = 0
+var Array_of_y_speed = []
+var Array_of_x_speed = []
+var theta = 0
+var radians = theta * (Math.PI / 180);
+var initial_x_speed = 0;
+var initial_y_speed = 0;
 
 
 var isPaused = false;
@@ -37,6 +43,30 @@ PauseButton.addEventListener("click", PauseCheck);
 //INPUT FUNCTION BELOW
 
 function input(){
+    theta = prompt("Enter angle value (in degrees):");
+    if (theta == null) {    //user pressed cancel
+        alert("cancelled");
+        return false;
+    }
+    verify = Number(theta);     //converts input to number for verification
+    if (!Number.isFinite(verify)) {     //checks if input is a valid number
+        alert("Invalid value inputted, setting to 0");
+        theta = 0;  //sets speed to 0 if invalid
+        return false;
+    }
+    if (verify < 0) {   //checks if input is less than 0
+        alert("Under 0 inputted, setting to 0");    //alerts user
+        theta = 0;  //sets speed to 0
+    }
+    if (verify > 90){   //checks if input is greater than 15
+        alert("number too high, setting to 90")     //alerts user
+        theta = 90;     //sets speed to 15 (max speed)
+    }
+    if (verify >= 0 && verify <=90) {   //valid input range
+        theta = verify;     //sets speed to inputted value
+        radians = theta * (Math.PI / 180);
+    }
+    
     speed = prompt("Enter speed value:");
     if (speed == null) {    //user pressed cancel
         alert("cancelled");
@@ -51,6 +81,7 @@ function input(){
     if (verify < 0) {   //checks if input is less than 0
         alert("Under 0 inputted, setting to 0");    //alerts user
         speed = 0;  //sets speed to 0
+        radians = theta * (Math.PI / 180);
     }
     if (verify > 50){   //checks if input is greater than 15
         alert("number too high, setting to 50")     //alerts user
@@ -58,13 +89,16 @@ function input(){
     }
     if (verify >= 0 && verify <=50) {   //valid input range
         speed = verify;     //sets speed to inputted value
-        alert("Valid number");
+        initial_x_speed = speed * Math.cos(radians);
+        initial_y_speed = speed * Math.sin(radians);
         if (verify == 0){   //checks if speed is 0
             alert("speed is 0, circle will not move");  //alerts user that the circle will not move
         }
     }
+
     return true;
 }
+
 
 //DRAWING CODE BELOW
 
@@ -122,6 +156,7 @@ class newCircle {
             this.gravity = -this.gravity * this.elasticity;
             this.y_pos = 655 - 29;
         }
+
         this.x_pos += this.speed;
         this.y_pos += this.gravity;
         this.gravity = this.gravity + 0.1633333
@@ -149,13 +184,12 @@ class newCircle {
             this.gravity = -this.gravity * this.elasticity;
             this.y_pos = 500 - 29;
         }
-        //if (this.speed <= 0.03 && this.speed >= -0.03) {
-        //    this.speed = 0
-        //}
-
-
+        Array_of_x_speed[index] = this.speed;
+        Array_of_y_speed[index] = this.gravity;
+        index += 1;
         this.drawNew(context);      //draws the circle at the new position
         context.fillRect(0, 655, canvas.width, canvas.height - 655); // Draws the ground
+        
     }
 }
 
@@ -198,24 +232,22 @@ function drawObjects() {     //function to animate the circle
     }
 }
 
-//function Wall() {
-    //requestAnimationFrame(Wall);      //calls Wall again for the next frame
-    //clearRect(0, 0, canvas.width, canvas.height);   //clears the canvas for the next frame
-    //drawWall.drawNewWall(context);
-//}
-
-
-//EVENT LISTENER BELOW
-
 const DrawButton = document.getElementById("Draw");     //Gets the Draw button from the HTML
 DrawButton.addEventListener("click", () => {  //Checks when the button is clicked
     if (CircleDrawn == false){
         if (input() == true){       //Calls the input function to get speed from user
-            draw_circle.speed = 0;      //updates the circle's speed with the user input
+            draw_circle.speed = initial_x_speed;      //updates the circle's speed with the user input
+            draw_circle.gravity = -initial_y_speed;  //updates the circle's gravity with the user input
+            alert("Initial X Speed: " + initial_x_speed.toFixed(2) + "\nInitial Y Speed: " + (-initial_y_speed).toFixed(2));
             drawObjects();       //Calls the drawObjects function to start the animation
             CircleDrawn = true;
-            //Wall();
         }
         }
     }
 );
+
+const GraphButton = document.getElementById("GraphButton");
+GraphButton.addEventListener("click", () => {
+    localStorage.setItem("SpeedArray", JSON.stringify(Array_of_x_speed));
+    localStorage.setItem("y_SpeedArray", JSON.stringify(Array_of_y_speed));
+});
