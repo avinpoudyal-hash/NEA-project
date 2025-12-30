@@ -1,8 +1,7 @@
 var x_pos = 100
 var y_pos = 100
-var speed = 0
+var speed = 10
 var mass = 10
-//var wall_height =20
 let elasticity = 0.6
 let restitution = 8
 let timer = 0
@@ -13,9 +12,6 @@ friction = ((mass * 9.8) * restitution) / 60 //PER FRAME FRICTION DECREASING MOM
 momentum = (speed * mass) * 60 //INITIAL MOMENTUM   (assume speed = 12)  3600
 Momentum_decrease_via_friction = 0
 let Array_of_y_speed = []
-let x = 0
-let acceleration = 0
-
 
 
 var isPaused = false;
@@ -41,27 +37,28 @@ PauseButton.addEventListener("click", PauseCheck);
 //INPUT FUNCTION BELOW
 
 function input(){
-    acceleration = prompt("Enter speed value:");
-    if (acceleration == null) {    //user pressed cancel
+    speed = prompt("Enter speed value:");
+    if (speed == null) {    //user pressed cancel
         alert("cancelled");
         return false;
     }
-    verify = Number(acceleration);     //converts input to number for verification
+    verify = Number(speed);     //converts input to number for verification
     if (!Number.isFinite(verify)) {     //checks if input is a valid number
         alert("Invalid value inputted, setting to 0");
-        acceleration = 0;  //sets speed to 0 if invalid
+        speed = 0;  //sets speed to 0 if invalid
         return false;
     }
     if (verify < 0) {   //checks if input is less than 0
         alert("Under 0 inputted, setting to 0");    //alerts user
-        acceleration = 0;  //sets speed to 0
+        speed = 0;  //sets speed to 0
     }
     if (verify > 50){   //checks if input is greater than 15
         alert("number too high, setting to 50")     //alerts user
-        acceleration = 50;     //sets speed to 15 (max speed)
+        speed = 50;     //sets speed to 15 (max speed)
     }
     if (verify >= 0 && verify <=50) {   //valid input range
-        acceleration = verify;     //sets speed to inputted value
+        speed = verify;     //sets speed to inputted value
+        alert("Valid number");
         if (verify == 0){   //checks if speed is 0
             alert("speed is 0, circle will not move");  //alerts user that the circle will not move
         }
@@ -92,7 +89,7 @@ context.fillStyle = "purple";
 context.fillRect(0, 655, canvas.width, canvas.height - 655); // Draws the ground
 
 class newCircle {
-    constructor(x_pos, y_pos, speed, elasticity, gravity, Momentum_decrease_via_friction, mass, friction, restitution, acceleration){   //constructor function to set up the circle
+    constructor(x_pos, y_pos, speed, elasticity, gravity, Momentum_decrease_via_friction, mass, friction, restitution){   //constructor function to set up the circle
     this.x_pos = x_pos
     this.y_pos = y_pos
     this.speed = speed
@@ -102,7 +99,6 @@ class newCircle {
     this.mass = mass
     this.friction = friction
     this.restitution = restitution
-    this.acceleration = acceleration
     }
     drawNew(context){   //function to draw the circle
 
@@ -126,7 +122,7 @@ class newCircle {
             this.gravity = -this.gravity * this.elasticity;
             this.y_pos = 655 - 29;
         }
-        this.x_pos += this.acceleration + (this.acceleration / 60)
+        this.x_pos += this.speed;
         this.y_pos += this.gravity;
         this.gravity = this.gravity + 0.1633333
         if (this.y_pos + 30 >= 655) {
@@ -174,12 +170,15 @@ class newWall {
 
         context.beginPath();    //begin drawing
         context.rect(this.x_pos, this.y_pos, this.width, this.height);  //draws rectangle at x_pos, y_pos with width and height
+        context.strokeStyle = "black";
         context.stroke();   //draws the outline of the rectangle
+        context.fillStyle = "purple";
+        context.fill();
         context.closePath();    //ends drawing
     }
 }
 
-let draw_circle = new newCircle(x_pos, y_pos, speed, elasticity, gravity, Momentum_decrease_via_friction, mass, friction, restitution, acceleration)    //creates a new circle object
+let draw_circle = new newCircle(x_pos, y_pos, speed, elasticity, gravity, Momentum_decrease_via_friction, mass, friction, restitution)    //creates a new circle object
 let drawWall = new newWall(300, 500, 200, 20);
 
 
@@ -196,8 +195,6 @@ function drawObjects() {     //function to animate the circle
         const FallingSpeed = document.getElementById("YSpeedValue");
         FallingSpeed.textContent = draw_circle.gravity.toFixed(2);
         drawWall.drawNewWall(context);
-        Array_of_y_speed[x] = draw_circle.gravity
-        x += 1
     }
 }
 
@@ -222,6 +219,3 @@ DrawButton.addEventListener("click", () => {  //Checks when the button is clicke
         }
     }
 );
-while (Array_of_y_speed.length > 0) {
-    console.log(Array_of_y_speed.shift());
-}

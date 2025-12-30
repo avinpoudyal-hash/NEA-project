@@ -1,7 +1,10 @@
 var graph_y_pos = 100;
 let graph_index = 0;
 var graph_x_pos = 100;
+var count = 0;
+var point_1 = 340;
 let graph_Array_for_speed = JSON.parse(localStorage.getItem("SpeedArray"))
+var SpeedValue = 800;
 
 
 let graph_canvas = document.getElementById("GraphCanvas")
@@ -27,9 +30,9 @@ class graph_newCircle {
     drawNew(graph_context){   //function to draw the circle
         graph_context.beginPath();    //begin drawing
         graph_context.arc(this.graph_x_pos, this.graph_y_pos, 4, 0, Math.PI * 2, false)
-        graph_context.fillStyle = 'blue';
+        graph_context.fillStyle = 'red';
         graph_context.fill();
-        graph_context.strokeStyle = 'blue';
+        graph_context.strokeStyle = 'red';
         graph_context.stroke();   //draws the outline of the circle
         graph_context.closePath();    //ends drawing
     }
@@ -56,20 +59,65 @@ class newWall {
         context.rect(this.x_pos, this.y_pos, this.width, this.height);
         context.strokeStyle = "black";
         context.stroke();   
-        context.closePath();    
+        context.closePath();
     }
 }
 
-let drawWall = new newWall(100, 400, 1300, 1);
+class xAxis {
+    constructor(x_pos, y_pos, width, height){
+    this.x_pos = x_pos
+    this.y_pos = y_pos
+    this.width = width
+    this.height = height
+    }
+    drawXAxis(context){
+
+        context.beginPath();    
+        context.rect(this.x_pos, this.y_pos, this.width, this.height);
+        context.strokeStyle = "black";
+        context.stroke();   
+        context.closePath();
+    }
+    draw_x_points(context){
+        for (let i = 0; i <= 16; i++){
+            this.drawXAxis(context);
+            this.y_pos -= 50;
+        }
+}
+}
+
+let drawWall = new newWall(100, 400, 1370, 1);
+let first_points = new newWall (340, 400, 1, 10);
+let second_points = new newWall (580, 400, 1, 10);
+let third_points = new newWall (820, 400, 1, 10);
+let fourth_points = new newWall (1060, 400, 1, 10);
+let fifth_points = new newWall (1300, 400, 1, 10);
+let yaxis = new newWall (100, 0, 1, 800);
+let xaxis = new xAxis (90, 800, 10, 1);
 let graph_draw_circle = new graph_newCircle(graph_x_pos, graph_y_pos)    //creates a new circle object
+
 
 function moveCircle() {     //function to animate the circle
         requestAnimationFrame(moveCircle);      //calls moveCircle again for the next frame
-        graph_context.clearRect(0, 0, graph_canvas.width, graph_canvas.height);   //clears the canvas for the next frame
         graph_draw_circle.drawing(graph_context);      // calls the movement function to update position and draw the circle
+        first_points.drawNewWall(graph_context);
+        second_points.drawNewWall(graph_context);
+        third_points.drawNewWall(graph_context);
+        fourth_points.drawNewWall(graph_context);
+        fifth_points.drawNewWall(graph_context);
+        yaxis.drawNewWall(graph_context);
+        xaxis.draw_x_points(graph_context);
         drawWall.drawNewWall(graph_context);
 }
 
 const StartGraphButton = document.getElementById("ShowGraph")
-StartGraphButton.addEventListener("click", moveCircle)
+//StartGraphButton.addEventListener("click", moveCircle);
 drawWall.drawNewWall(graph_context);
+first_points.drawNewWall(graph_context);
+second_points.drawNewWall(graph_context);
+third_points.drawNewWall(graph_context);
+fourth_points.drawNewWall(graph_context);
+fifth_points.drawNewWall(graph_context);
+yaxis.drawNewWall(graph_context);
+xaxis.draw_x_points(graph_context);
+moveCircle();

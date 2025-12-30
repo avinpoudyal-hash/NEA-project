@@ -66,7 +66,7 @@
     border: 10px, black;
 }
 body {
-    cursor: url('starrail_arrow.png'), auto;
+    overflow: hidden;
 }
 #GraphButton{
     background-color: #ffc94c;
@@ -80,4 +80,208 @@ body {
 
 #GraphButton:hover{
     background-color: #a17600;
+}
+
+
+#graphSeconds_1 {
+    position: absolute;
+    bottom: 380px;
+    left: 343px;
+    font-size: 25px;
+    color: #000000;
+    z-index: 10;
+}
+
+#graphSeconds_2 {
+    position: absolute;
+    bottom: 380px;
+    left: 583px;
+    font-size: 25px;
+    color: #000000;
+    z-index: 10;
+}
+#graphSeconds_3 {
+    position: absolute;
+    bottom: 380px;
+    left: 823px;
+    font-size: 25px;
+    color: #000000;
+    z-index: 10;
+}
+#graphSeconds_4 {
+    position: absolute;
+    bottom: 380px;
+    left: 1063px;
+    font-size: 25px;
+    color: #000000;
+    z-index: 10;
+}
+#graphSeconds_5 {
+    position: absolute;
+    bottom: 380px;
+    left: 1303px;
+    font-size: 25px;
+    color: #000000;
+    z-index: 10;
+}
+
+#secondsTag {
+    position: absolute;
+    bottom: 350px;
+    left: 750px;
+    font-size: 27px;
+    color: #000000;
+    z-index: 10;
+}
+
+#speed1 {
+    position: absolute;
+    bottom: 477px;
+    left: 80px;
+    font-size: 20px;
+    color: #000000;
+    z-index: 10;
+}
+
+#speed2 {
+    position: absolute;
+    bottom: 527px;
+    left: 75px;
+    font-size: 20px;
+    color: #000000;
+    z-index: 10;
+}
+#speed3 {
+    position: absolute;
+    bottom: 577px;
+    left: 75px;
+    font-size: 20px;
+    color: #000000;
+    z-index: 10;
+}
+#speed4 {
+    position: absolute;
+    bottom: 627px;
+    left: 75px;
+    font-size: 20px;
+    color: #000000;
+    z-index: 10;
+}
+#speed5 {
+    position: absolute;
+    bottom: 677px;
+    left: 75px;
+    font-size: 20px;
+    color: #000000;
+    z-index: 10;
+}
+#speed6 {
+    position: absolute;
+    bottom: 727px;
+    left: 75px;
+    font-size: 20px;
+    color: #000000;
+    z-index: 10;
+}
+
+#speed7 {
+    position: absolute;
+    bottom: 777px;
+    left: 75px;
+    font-size: 20px;
+    color: #000000;
+    z-index: 10;
+}
+#speed8 {
+    position: absolute;
+    bottom: 827px;
+    left: 75px;
+    font-size: 20px;
+    color: #000000;
+    z-index: 10;
+}
+
+#speed0 {
+    position: absolute;
+    bottom: 427px;
+    left: 80px;
+    font-size: 20px;
+    color: #000000;
+    z-index: 10;
+}
+
+#speed-1 {
+    position: absolute;
+    bottom: 377px;
+    left: 75px;
+    font-size: 20px;
+    color: #000000;
+    z-index: 10;
+}
+
+#speed-2 {
+    position: absolute;
+    bottom: 327px;
+    left: 70px;
+    font-size: 20px;
+    color: #000000;
+    z-index: 10;
+}
+#speed-3 {
+    position: absolute;
+    bottom: 277px;
+    left: 70px;
+    font-size: 20px;
+    color: #000000;
+    z-index: 10;
+}
+#speed-4 {
+    position: absolute;
+    bottom: 227px;
+    left: 70px;
+    font-size: 20px;
+    color: #000000;
+    z-index: 10;
+}
+#speed-5 {
+    position: absolute;
+    bottom: 177px;
+    left: 70px;
+    font-size: 20px;
+    color: #000000;
+    z-index: 10;
+}
+#speed-6 {
+    position: absolute;
+    bottom: 127px;
+    left: 70px;
+    font-size: 20px;
+    color: #000000;
+    z-index: 10;
+}
+
+#speed-7 {
+    position: absolute;
+    bottom: 77px;
+    left: 70px;
+    font-size: 20px;
+    color: #000000;
+    z-index: 10;
+}
+#speed-8 {
+    position: absolute;
+    bottom: 27px;
+    left: 70px;
+    font-size: 20px;
+    color: #000000;
+    z-index: 10;
+}
+#speedTag {
+    position: absolute;
+    bottom: 427px;
+    left: -15px;
+    font-size: 27px;
+    color: #000000;
+    rotate: -90deg;
+    z-index: 10;
 }

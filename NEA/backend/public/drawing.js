@@ -89,17 +89,18 @@ class newCircle {
         context.arc(this.x_pos, this.y_pos, 30, 0, Math.PI * 2, false)  //draws circle at x_pos, y_pos with radius 50
         context.fillStyle = 'red';
         context.fill();
+        context.strokeStyle = 'black';
         context.stroke();   //draws the outline of the circle
         context.closePath();    //ends drawing
     }
     movement(context){  //function to move the circle
         if (this.x_pos + 30 >= canvas.width) { 
             this.speed = -this.speed * this.elasticity;
-            this.x_pos = canvas.width - 31;
+            this.x_pos = canvas.width - 29;
         }
         if (this.x_pos - 30 <= 0) { 
             this.speed = -this.speed * this.elasticity;
-            this.x_pos = 31;
+            this.x_pos = 29;
         }
         this.speed.toFixed(2);
         Array_for_speed[index] = this.speed;
