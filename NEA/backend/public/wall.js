@@ -3,7 +3,7 @@ var y_pos = 400
 var speed = 0
 var mass = 10
 let elasticity = 0.6
-let restitution = 20
+let restitution = 10
 let timer = 0
 let gravity = 0
 let friction = 0
@@ -66,7 +66,7 @@ function input(){
         theta = verify;     //sets speed to inputted value
         radians = theta * (Math.PI / 180);
     }
-    
+
     speed = prompt("Enter speed value:");
     if (speed == null) {    //user pressed cancel
         alert("cancelled");
@@ -155,6 +155,10 @@ class newCircle {
         if (this.y_pos + 30 >= 655) {
             this.gravity = -this.gravity * this.elasticity;
             this.y_pos = 655 - 29;
+        }
+        if (this.y_pos - 30 <= 0) {
+            this.gravity = -this.gravity * this.elasticity;
+            this.y_pos = 31;
         }
 
         this.x_pos += this.speed;

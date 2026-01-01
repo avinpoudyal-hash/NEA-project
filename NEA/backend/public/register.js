@@ -1,56 +1,39 @@
+var usernameStorage = ''
+var passwordStorage = ''
 
-document.getElementById('signupForm').addEventListener('submit', async function(e) {
-    e.preventDefault();
-            
-    const username = document.getElementById('new_username').value;
-    const password = document.getElementById('new_password').value;
-    const confirmPassword = document.getElementById('conf_password').value;
-            
-    if (!username || !password || !confirmPassword) {
-        alert('Please fill in all fields', 'error');
+const generateHash = (string) => {
+  let hash = 0;
+  for (const char of string) {
+    hash = (hash << 5) - hash + char.charCodeAt(0);
+    hash |= 0;
+  }
+  return hash;
+};
+
+
+const submitButton = document.getElementById('submit_button');
+submitButton.addEventListener('click', () => {
+    username = document.getElementById('new_username').value;
+    password = document.getElementById('new_password').value;
+    conf_password = document.getElementById('conf_password').value;
+    if (password !== conf_password) {
+        alert('Passwords do not match. Please try again.');
         return;
     }
-            
-    if (password !== confirmPassword) {
-        alert('Passwords do not match', 'error');
+    else if (password.length < 6) {
+        alert('Password must be at least 6 characters long.');
         return;
     }
-            
-    if (password.length < 6) {
-        alert('Password must be at least 6 characters long', 'error');
+    else if (username == '' || password == '' || conf_password == '') {
+        alert('All fields are required.');
         return;
     }
-
-    try {
-        alert('Sending request to /signup...');
-                
-        // NOTE: Using relative URL since we're on same origin
-        const response = await fetch('.../signup', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                username,
-                password,
-                confirmPassword
-            })
-        });
-
-        alert('Response status:', response.status);
-                
-        const data = await response.json();
-        alert('Server response:', data);
-
-        if (data.message) {
-            alert(data.message, 'success');
-            document.getElementById('signupForm').reset();
-        } else if (data.error) {
-            alert(data.error, 'error');
-        }
-
-    } catch (error) {
-        console.error('Error:', error);
-        alert('Error connecting to server. Please try again.', 'error');
+    else {
+        usernameStorage = generateHash(username)
+        passwordStorage = generateHash(password)
+        localStorage.setItem('username', JSON.stringify(usernameStorage));
+        localStorage.setItem('password', JSON.stringify(passwordStorage));
+        alert('Registration successful!');
+        location.href = "index.html";
     }
-});
+})
