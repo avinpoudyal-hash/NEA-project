@@ -5,9 +5,6 @@ function Quit() {
    }
 }
 
-function Wall_Collision_Redirect() {
-  location.href = "WallCollision.html";
-}
 
 function profile() {
   const ProfileButton = document.getElementById("Profile")
@@ -16,8 +13,10 @@ function profile() {
 const QuitButton = document.getElementById("Quit_Button")
 QuitButton.addEventListener("click", Quit)
 
-const CollisionOne = document.getElementById("Button1")
-redirect = CollisionOne.addEventListener("click", Wall_Collision_Redirect)
+const BackButton = document.getElementById("Back_Button")
+BackButton.addEventListener("click", () => {
+    window.history.back();
+})
 
 
 

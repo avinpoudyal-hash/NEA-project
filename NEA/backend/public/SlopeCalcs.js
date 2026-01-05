@@ -2,8 +2,6 @@ var x_pos = 100
 var y_pos = 400
 var speed = 0
 var mass = 10
-var elasticity = elasticityValue
-var elasticityValue = 0
 let restitution = 10
 let timer = 0
 let gravity = 0
@@ -15,10 +13,14 @@ Momentum_decrease_via_friction = 0
 index = 0
 var Array_of_y_speed = []
 var Array_of_x_speed = []
-var theta = 0
+var theta = 60
 var radians = theta * (Math.PI / 180);
 var initial_x_speed = 0;
 var initial_y_speed = 0;
+var gravityAdditionX = 0
+let bottomX = x_pos + 15
+let bottomY = y_pos + 30
+
 
 var isPaused = false;
 
@@ -35,6 +37,7 @@ function PauseCheck() {
     }
 }
 
+
 const PauseButton = document.getElementById("Pause");
 PauseButton.addEventListener("click", PauseCheck);
 
@@ -44,57 +47,57 @@ PauseButton.addEventListener("click", PauseCheck);
 
 function input(){
     theta = prompt("Enter angle value (in degrees):");
-    if (theta == null) {    //user pressed cancel
+    if (theta == null) { 
         alert("cancelled");
         return false;
     }
-    verify = Number(theta);     //converts input to number for verification
+    verify = Number(theta);    
     if (!Number.isFinite(verify)) {     //checks if input is a valid number
         alert("Invalid value inputted, setting to 0");
         theta = 0;  //sets speed to 0 if invalid
         return false;
     }
-    if (verify < 0) {   //checks if input is less than 0
+    if (verify < 0) {   
         alert("Under 0 inputted, setting to 0");    //alerts user
         theta = 0;  //sets speed to 0
     }
-    if (verify > 90){   //checks if input is greater than 15
+    if (verify > 90){   
         alert("number too high, setting to 90")     //alerts user
-        theta = 90;     //sets speed to 15 (max speed)
+        theta = 90;     
     }
-    if (verify >= 0 && verify <=90) {   //valid input range
-        theta = verify;     //sets speed to inputted value
+    if (verify >= 0 && verify <=90) {   
+        theta = verify;     
         radians = theta * (Math.PI / 180);
     }
 
-    speed = prompt("Enter speed value:");
-    if (speed == null) {    //user pressed cancel
-        alert("cancelled");
-        return false;
-    }
-    verify = Number(speed);     //converts input to number for verification
-    if (!Number.isFinite(verify)) {     //checks if input is a valid number
-        alert("Invalid value inputted, setting to 0");
-        speed = 0;  //sets speed to 0 if invalid
-        return false;
-    }
-    if (verify < 0) {   //checks if input is less than 0
-        alert("Under 0 inputted, setting to 0");    //alerts user
-        speed = 0;  //sets speed to 0
-        radians = theta * (Math.PI / 180);
-    }
-    if (verify > 50){   //checks if input is greater than 15
-        alert("number too high, setting to 50")     //alerts user
-        speed = 50;     //sets speed to 15 (max speed)
-    }
-    if (verify >= 0 && verify <=50) {   //valid input range
-        speed = verify;     //sets speed to inputted value
-        initial_x_speed = speed * Math.cos(radians);
-        initial_y_speed = speed * Math.sin(radians);
-        if (verify == 0){   //checks if speed is 0
-            alert("speed is 0, circle will not move");  //alerts user that the circle will not move
-        }
-    }
+    //speed = prompt("Enter speed value:");
+    //if (speed == null) {    //user pressed cancel
+    //    alert("cancelled");
+    //    return false;
+    //}
+    //verify = Number(speed);     //converts input to number for verification
+    //if (!Number.isFinite(verify)) {     //checks if input is a valid number
+    //    alert("Invalid value inputted, setting to 0");
+    //    speed = 0;  //sets speed to 0 if invalid
+    //    return false;
+    //}
+    //if (verify < 0) {   //checks if input is less than 0
+    //    alert("Under 0 inputted, setting to 0");    //alerts user
+    //    speed = 0;  //sets speed to 0
+    //    radians = theta * (Math.PI / 180);
+    //}
+    //if (verify > 50){   //checks if input is greater than 15
+    //   alert("number too high, setting to 50")     //alerts user
+    //   speed = 50;     //sets speed to 15 (max speed)
+    //}
+    //if (verify >= 0 && verify <=50) {   //valid input range
+    //    speed = verify;     //sets speed to inputted value
+    //    initial_x_speed = speed * Math.cos(radians);
+    //    initial_y_speed = speed * Math.sin(radians);
+    //    if (verify == 0){   //checks if speed is 0
+    //        alert("speed is 0, circle will not move");  //alerts user that the circle will not move
+    //    }
+    //}
 
     return true;
 }
@@ -123,21 +126,23 @@ context.fillStyle = "red";
 context.fillRect(0, 655, canvas.width, canvas.height - 655); // Draws the ground
 
 class newCircle {
-    constructor(x_pos, y_pos, speed, elasticity, gravity, Momentum_decrease_via_friction, mass, friction, restitution){   //constructor function to set up the circle
+    constructor(x_pos, y_pos, speed, gravity, Momentum_decrease_via_friction, mass, friction, restitution, radians, gravityAdditionX){   //constructor function to set up the circle
     this.x_pos = x_pos
     this.y_pos = y_pos
     this.speed = speed
-    this.elasticity = elasticity
     this.gravity = gravity
     this.Momentum_decrease_via_friction = Momentum_decrease_via_friction
     this.mass = mass
     this.friction = friction
     this.restitution = restitution
+    this.radians = radians
+    //}
+    //updateGravity() {
+        this.gravityAdditionX = this.mass * 0.16333333333 * (Math.sin(this.radians));
     }
     drawNew(context){   //function to draw the circle
-
         context.beginPath();    //begin drawing
-        context.arc(this.x_pos, this.y_pos, 30, 0, Math.PI * 2, false)  //draws circle at x_pos, y_pos with radius 50
+        context.rect(this.x_pos, this.y_pos, 30, 30)  //draws circle at x_pos, y_pos with radius 50
         context.fillStyle = 'red';
         context.fill();
         context.stroke();   //draws the outline of the circle
@@ -145,25 +150,26 @@ class newCircle {
     }
     movement(context){  //function to move the circle
         if (this.x_pos + 30 >= canvas.width) { 
-            this.speed = -this.speed * this.elasticity;
+            this.speed = -this.speed
             this.x_pos = canvas.width - 31;
         }
         if (this.x_pos - 30 <= 0) { 
-            this.speed = -this.speed * this.elasticity;
+            this.speed = -this.speed
             this.x_pos = 31;
         }
         if (this.y_pos + 30 >= 655) {
-            this.gravity = -this.gravity * this.elasticity;
+            this.gravity = -this.gravity
             this.y_pos = 655 - 29;
         }
         if (this.y_pos - 30 <= 0) {
-            this.gravity = -this.gravity * this.elasticity;
+            this.gravity = -this.gravity
             this.y_pos = 31;
         }
 
         this.x_pos += this.speed;
         this.y_pos += this.gravity;
-        this.gravity = this.gravity + 0.1633333
+        this.gravity = this.gravity + 0.1633333333
+        this.speed += this.gravityAdditionX
         if (this.y_pos + 30 >= 655) {
             if (this.speed < 0) {
                 this.speed = Math.abs(this.speed)
@@ -179,54 +185,63 @@ class newCircle {
                 this.Momentum_decrease_via_friction = (this.momentum - this.friction) / (60 * this.mass)
                 this.speed = this.Momentum_decrease_via_friction
             }
-        if (this.speed > 0 && this.x_pos + 30 >= 300 && this.y_pos + 30 >= 500 && this.y_pos + 30 <= 530 && this.x_pos <= 500) {
-            this.speed = -this.speed * this.elasticity;
-            this.x_pos = 300 - 29;
         }
-        if (this.speed < 0 && this.x_pos - 30 <= 500 && this.y_pos + 30 >= 500 && this.y_pos + 30 <= 530 && this.x_pos >= 300) {
-            this.speed = -this.speed * this.elasticity;
-            this.x_pos = 500 + 29;
-        }
-        if (this.gravity < 0 && this.y_pos - 30 <= 520 && this.y_pos - 30 >= 500 && this.x_pos + 30 >= 300 && this.x_pos - 30 <= 500) {
-            this.gravity = -this.gravity * this.elasticity;
-            this.y_pos = 520 + 31;
-        }
-        if (this.gravity > 0 && this.y_pos + 30 >= 500 && this.y_pos + 30 <= 520 && this.x_pos + 30 >= 300 && this.x_pos - 30 <= 500) {
-            this.gravity = -this.gravity * this.elasticity;
-            this.y_pos = 500 - 29;
-        }
-    }
         Array_of_x_speed[index] = this.speed;
         Array_of_y_speed[index] = this.gravity;
         index += 1;
         this.drawNew(context);      //draws the circle at the new position
         context.fillRect(0, 655, canvas.width, canvas.height - 655); // Draws the ground
-        
+    }
+}
+    
+class newTriangle {
+    constructor(point1_x, point1_y, point2_x, point2_y, point3_x, point3_y, point4_x, point4_y, radians){
+        this.point1_x = point1_x
+        this.point1_y = point1_y
+        this.point2_x = point2_x
+        this.point2_y = point2_y
+        this.point3_x = point3_x
+        this.point3_y = point3_y
+        this.point4_x = point4_x
+        this.point4_y = point4_y
+        this.radians = radians
+        this.point1_y = 655 - (this.point2_x * (Math.tan(this.radians)))
+
+    }
+    updatePoints() {
+        this.point1_y = 655 - (this.point2_x * (Math.tan(this.radians)))
+    }
+
+    drawNewTriangle(context){ //POINT 2 X AND Y ARE CONSTANT NEVER CHANGE THEM!!!!
+        this.updatePoints();
+        context.beginPath()
+        context.strokeStyle = "black"
+        context.moveTo(this.point1_x, this.point1_y)
+        context.lineTo(this.point2_x, this.point2_y)
+        context.lineTo(this.point3_x, this.point3_y)
+        context.lineTo(this.point4_x, this.point4_y)
+        context.lineTo(this.point1_x, this.point1_y)
+        context.stroke()
+        context.fillStyle = "yellow"
+        context.fill()
+        context.closePath()
+    }
+    drawNewBounds(context){
+        context.beginPath()
+        context.strokeStyle = "black"
+        context.moveTo(this.point1_x, this.point1_y)
+        context.lineTo(this.point2_x, this.point2_y)
+        context.lineTo(this.point3_x, this.point3_y)
+        context.lineTo(this.point4_x, this.point4_y)
+        context.lineTo(this.point1_x, this.point1_y)
+        context.stroke()
+        context.closePath()
     }
 }
 
-class newWall {
-    constructor(x_pos, y_pos, width, height){   //constructor function to set up the wall
-    this.x_pos = x_pos
-    this.y_pos = y_pos
-    this.width = width
-    this.height = height
-    }
-    drawNewWall(context){   //function to draw the wall
-
-        context.beginPath();    //begin drawing
-        context.rect(this.x_pos, this.y_pos, this.width, this.height);  //draws rectangle at x_pos, y_pos with width and height
-        context.strokeStyle = "black";
-        context.stroke();   //draws the outline of the rectangle
-        context.fillStyle = "purple";
-        context.fill();
-        context.closePath();    //ends drawing
-    }
-}
-
-let draw_circle = new newCircle(x_pos, y_pos, speed, elasticity, gravity, Momentum_decrease_via_friction, mass, friction, restitution)    //creates a new circle object
-let drawWall = new newWall(300, 500, 200, 20);
-
+let draw_circle = new newCircle(x_pos, y_pos, speed, gravity, Momentum_decrease_via_friction, mass, friction, restitution, radians)    //creates a new circle object
+let drawTriangle = new newTriangle(0, 200, canvas.width/2, 655, 0, 655, 0, 0, radians)
+let drawBounds = new newTriangle(0,0, canvas.width, 0, canvas.width, 655, 0, 655)
 
 function drawObjects() {     //function to animate the circle
     if (isPaused) {
@@ -234,16 +249,14 @@ function drawObjects() {     //function to animate the circle
     }
     else {
         requestAnimationFrame(drawObjects);      //calls drawObjects again for the next frame
-        requestAnimationFrame(elasticityUpdate)
         context.clearRect(0, 0, canvas.width, canvas.height);   //clears the canvas for the next frame
         draw_circle.movement(context);      // calls the movement function to update position and draw the circle
+        drawTriangle.drawNewTriangle(context);
+        drawBounds.drawNewBounds(context)
         const speedDisplay = document.getElementById("SpeedValue");
         speedDisplay.textContent = draw_circle.speed.toFixed(2);
         const FallingSpeed = document.getElementById("YSpeedValue");
         FallingSpeed.textContent = draw_circle.gravity.toFixed(2);
-        const ElasticityTag = document.getElementById("ElasticityValue");
-        ElasticityTag.textContent = elasticity
-        drawWall.drawNewWall(context);
     }
 }
 
@@ -251,11 +264,12 @@ const DrawButton = document.getElementById("Draw");     //Gets the Draw button f
 DrawButton.addEventListener("click", () => {  //Checks when the button is clicked
     if (CircleDrawn == false){
         if (input() == true){       //Calls the input function to get speed from user
-            elasticityValue = document.getElementById("ElasticitySlider").value
-            draw_circle.elasticity = elasticityValue
             draw_circle.speed = initial_x_speed;      //updates the circle's speed with the user input
             draw_circle.gravity = -initial_y_speed;  //updates the circle's gravity with the user input
-            alert("Initial X Speed: " + initial_x_speed.toFixed(2) + "\nInitial Y Speed: " + (-initial_y_speed).toFixed(2));
+            drawTriangle.radians = radians
+            drawTriangle.updatePoints();
+            //draw_circle.updateGravity();
+            alert("Initial X Speed: " + initial_x_speed.toFixed(2) + "Initial Y Speed: " + (-initial_y_speed).toFixed(2));
             drawObjects();       //Calls the drawObjects function to start the animation
             CircleDrawn = true;
         }
@@ -263,16 +277,13 @@ DrawButton.addEventListener("click", () => {  //Checks when the button is clicke
     }
 );
 
-function elasticityUpdate() {
-        requestAnimationFrame(elasticityUpdate)
-        elasticityValue = document.getElementById("ElasticitySlider").value
-        const ElasticityTag = document.getElementById("ElasticityValue");
-        ElasticityTag.textContent = elasticityValue
-}
 const GraphButton = document.getElementById("GraphButton");
 GraphButton.addEventListener("click", () => {
     localStorage.setItem("SpeedArray", JSON.stringify(Array_of_x_speed));
     localStorage.setItem("y_SpeedArray", JSON.stringify(Array_of_y_speed));
 });
 
-elasticityUpdate();
+
+
+drawTriangle.drawNewTriangle(context);
+drawBounds.drawNewBounds(context)

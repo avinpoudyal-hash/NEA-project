@@ -19,9 +19,10 @@
 }
 #Quit_Button{
     background-color: #00a3ff;
+    font-size: 13px;
     border: 10px, black;
     width: 50px;
-    height: 25px;
+    height: 50px;
     position: fixed;
     top: 10px;
     right: 10px;
@@ -76,12 +77,26 @@ body {
     position: fixed;
     top: 10px;
     right: 80px;
+    cursor: pointer;
 }
 
 #GraphButton:hover{
     background-color: #a17600;
 }
 
+#Back_Button{
+    background-color: #ff6666;
+    border: 10px, black;
+    width: 75px;
+    height: 50px;
+    position: fixed;
+    top: 10px;
+    right: 100px;
+    cursor: pointer;
+}
+#Back_Button:hover{
+    background-color: #a04141;
+}
 
 #graphSeconds_1 {
     position: absolute;
@@ -300,5 +315,14 @@ body {
     left: 1300px;
     font-size: 16px;
     color: #0000ff;
+    z-index: 10;
+}
+
+#ElasticityTag {
+    position: absolute;
+    top: 200px;
+    left: 1%;
+    font-size: 15px;
+    color: #000000;
     z-index: 10;
 }

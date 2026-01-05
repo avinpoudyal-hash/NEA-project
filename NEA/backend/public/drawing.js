@@ -1,5 +1,5 @@
 var x_pos = 100
-var y_pos = 100
+var y_pos = 350
 var speed = 0
 elasticity = 0.6
 var Array_for_speed = []
@@ -87,7 +87,7 @@ class newCircle {
     drawNew(context){   //function to draw the circle
 
         context.beginPath();    //begin drawing
-        context.arc(this.x_pos, this.y_pos, 30, 0, Math.PI * 2, false)  //draws circle at x_pos, y_pos with radius 50
+        context.arc(this.x_pos, this.y_pos, 40, 0, Math.PI * 2, false)  //draws circle at x_pos, y_pos with radius 50
         context.fillStyle = 'red';
         context.fill();
         context.strokeStyle = 'black';
@@ -95,13 +95,13 @@ class newCircle {
         context.closePath();    //ends drawing
     }
     movement(context){  //function to move the circle
-        if (this.x_pos + 30 >= canvas.width) { 
+        if (this.x_pos + 40 >= canvas.width) { 
             this.speed = -this.speed * this.elasticity;
-            this.x_pos = canvas.width - 29;
+            this.x_pos = canvas.width - 39;
         }
-        if (this.x_pos - 30 <= 0) { 
+        if (this.x_pos - 40 <= 0) { 
             this.speed = -this.speed * this.elasticity;
-            this.x_pos = 29;
+            this.x_pos = 39;
         }
         Array_for_speed[index] = this.speed;
         index += 1;
