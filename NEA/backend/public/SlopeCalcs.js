@@ -163,6 +163,7 @@ class newCircle {
         context.rect(this.x_pos, this.y_pos, 30, 30)  //draws circle at x_pos, y_pos with width 30
         context.fillStyle = 'red';
         context.fill();
+        context.rotate(this.radians)
         context.stroke();   //draws the outline of the circle
         context.closePath();    //ends drawing
     }
@@ -189,6 +190,7 @@ class newCircle {
         let SlopeYValue = (-this.LineM * this.x_pos) +this.LineC
         this.x_pos += this.speed;
         this.y_pos += this.gravity;
+
         if (SlopeYValue > this.y_pos + 32) {
             this.gravity += 0.1633333333;
             Array_of_y_speed[index] = this.gravity;
