@@ -5,11 +5,11 @@ var bg_window_height = window.innerHeight;
 var bg_window_width = window.innerWidth;
 
 background.style.zIndex = "-1";
-background.style.position = "fixed";
-background.style.top = '0';
-background.style.left = '0';
-background.style.width = '100%';
-background.style.height = '100%';
+background.style.position = "absolute";
+background.style.top = '400';
+background.style.left = '500';
+background.style.width = '50%';
+background.style.height = '50%';
 background.width = window.innerWidth;
 background.height = window.innerHeight;
 background.style.backgroundRepeat = 'no-repeat';

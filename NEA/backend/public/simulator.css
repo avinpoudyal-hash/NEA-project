@@ -83,7 +83,7 @@ body {
     border: 10px, black;
     width: 50px;
     height: 50px;
-    position: fixed;
+    position: absolute;
     top: 10px;
     right: 80px;
     cursor: pointer;
@@ -100,7 +100,7 @@ body {
     height: 50px;
     position: fixed;
     top: 10px;
-    right: 100px;
+    right: 80px;
     cursor: pointer;
 }
 #Back_Button:hover{
@@ -109,7 +109,7 @@ body {
 
 #graphSeconds_1 {
     position: absolute;
-    bottom: 380px;
+    bottom: 42%;
     left: 343px;
     font-size: 25px;
     color: #000000;
@@ -118,7 +118,7 @@ body {
 
 #graphSeconds_2 {
     position: absolute;
-    bottom: 380px;
+    bottom: 42%;
     left: 583px;
     font-size: 25px;
     color: #000000;
@@ -126,7 +126,7 @@ body {
 }
 #graphSeconds_3 {
     position: absolute;
-    bottom: 380px;
+    bottom: 42%;
     left: 823px;
     font-size: 25px;
     color: #000000;
@@ -134,7 +134,7 @@ body {
 }
 #graphSeconds_4 {
     position: absolute;
-    bottom: 380px;
+    bottom: 42%;
     left: 1063px;
     font-size: 25px;
     color: #000000;
@@ -142,7 +142,7 @@ body {
 }
 #graphSeconds_5 {
     position: absolute;
-    bottom: 380px;
+    bottom: 42%;
     left: 1303px;
     font-size: 25px;
     color: #000000;
@@ -227,7 +227,7 @@ body {
 
 #speed0 {
     position: absolute;
-    bottom: 427px;
+    bottom: 46.5%;
     left: 80px;
     font-size: 20px;
     color: #000000;
@@ -328,7 +328,7 @@ body {
 }
 
 #ElasticityTag {
-    position: absolute;
+    position: fixed;
     top: 200px;
     left: 1%;
     font-size: 15px;

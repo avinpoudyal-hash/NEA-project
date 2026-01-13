@@ -1,12 +1,12 @@
 var x_pos = 1
 var y_pos = 200
 var speed = 0
-var mass = 10
-let restitution = 10
+var mass = 50
+let restitution = 0.6
 let timer = 0
 let gravity = 0
 let friction = 0
-let CircleDrawn = false
+let SquareDrawn = false
 friction = ((mass * 9.8) * restitution) / 60 //PER FRAME FRICTION DECREASING MOMENTUM   0.735
 momentum = (speed * mass) * 60 //INITIAL MOMENTUM   (assume speed = 12)  3600
 Momentum_decrease_via_friction = 0
@@ -72,34 +72,38 @@ function input(){
         radians = theta * (Math.PI / 180);
     }
 
-    //speed = prompt("Enter speed value:");
-    //if (speed == null) {    //user pressed cancel
-    //    alert("cancelled");
-    //    return false;
-    //}
-    //verify = Number(speed);     //converts input to number for verification
-    //if (!Number.isFinite(verify)) {     //checks if input is a valid number
-    //    alert("Invalid value inputted, setting to 0");
-    //    speed = 0;  //sets speed to 0 if invalid
-    //    return false;
-    //}
-    //if (verify < 0) {   //checks if input is less than 0
-    //    alert("Under 0 inputted, setting to 0");    //alerts user
-    //    speed = 0;  //sets speed to 0
-    //    radians = theta * (Math.PI / 180);
-    //}
-    //if (verify > 50){   //checks if input is greater than 15
-    //   alert("number too high, setting to 50")     //alerts user
-    //   speed = 50;     //sets speed to 15 (max speed)
-    //}
-    //if (verify >= 0 && verify <=50) {   //valid input range
-    //    speed = verify;     //sets speed to inputted value
-    //    initial_x_speed = speed * Math.cos(radians);
-    //    initial_y_speed = speed * Math.sin(radians);
-    //    if (verify == 0){   //checks if speed is 0
-    //        alert("speed is 0, circle will not move");  //alerts user that the circle will not move
-    //    }
-    //}
+    speed = prompt("Enter speed value:");
+    if (speed == null) {    //user pressed cancel
+        alert("cancelled");
+        return false;
+    }
+    verify = Number(speed);     //converts input to number for verification
+    if (!Number.isFinite(verify)) {     //checks if input is a valid number
+        alert("Invalid value inputted, setting to 0");
+        speed = 0;  //sets speed to 0 if invalid
+        return false;
+    }
+    if (verify < -15) {   //checks if input is less than 0
+        alert("Under -15 inputted, setting to -15");    //alerts user
+        speed = -15;  //sets speed to -10
+        radians = theta * (Math.PI / 180);
+        initial_x_speed = speed * Math.cos(radians);
+    }
+    if (verify > 15){   //checks if input is greater than 15
+       alert("number too high, setting to 15")     //alerts user
+       speed = 15;     //sets speed to 15 (max speed)
+       radians = theta * (Math.PI / 180);
+       initial_x_speed = speed * Math.cos(radians)
+       initial_y_speed = speed * Math.sin(radians)
+    }
+    if (verify >= -15 && verify <=15) {   //valid input range
+        speed = verify;     //sets speed to inputted value
+        initial_x_speed = speed * Math.cos(radians);
+        initial_y_speed = speed * Math.sin(radians);
+        if (verify == 0){   //checks if speed is 0
+            alert("speed is 0, Square will not move");  //alerts user that the Square will not move
+        }
+    }
 
     return true;
 }
@@ -134,13 +138,11 @@ function LineEquation(){
     let LineY2 = drawTriangle.point2_y;
     console.log("line x1", LineX1, "line x2:", LineX2, "line y1:", LineY1, "line y2:", LineY2)
     LineM = -((LineY2 - LineY1) / (LineX2 - LineX1)) // (655 - 200) / (735 - 0) = (455 / 735) (?????)
-    //LineC = -LineY1
-    LineC = 655 - LineC
-    return LineY1, LineM
+    return LineM
 }
 
-class newCircle {
-    constructor(x_pos, y_pos, speed, gravity, Momentum_decrease_via_friction, mass, friction, restitution, radians, LineC, LineM, LineX, gravityStorage){   //constructor function to set up the circle
+class newSquare {
+    constructor(x_pos, y_pos, speed, gravity, Momentum_decrease_via_friction, mass, friction, restitution, radians, LineC, LineM, LineX, gravityStorage){   //constructor function to set up the Square
     this.x_pos = x_pos
     this.y_pos = y_pos
     this.speed = speed
@@ -158,29 +160,35 @@ class newCircle {
     //updateGravity() {
         //this.gravityAdditionX = this.mass * 0.16333333333 * (Math.sin(this.radians));
     }
-    drawNew(context){   //function to draw the circle
+    drawNew(context){   //function to draw the Square
+        context.save()
+        context.translate(this.x_pos + 30, this.y_pos + 30)
+        context.rotate(this.radians)
+        context.translate(-(this.x_pos + 30), -(this.y_pos + 30))
         context.beginPath();    //begin drawing
-        context.rect(this.x_pos, this.y_pos, 30, 30)  //draws circle at x_pos, y_pos with width 30
+        context.rect(this.x_pos, this.y_pos, 60, 60)  //draws Square at x_pos, y_pos with width 60
         context.fillStyle = 'red';
         context.fill();
-        context.rotate(this.radians)
-        context.stroke();   //draws the outline of the circle
-        context.closePath();    //ends drawing
+        context.stroke();   //draws the outline of the Square
+        context.closePath();    //ends drawing 
+        context.restore()
     }
-    movement(context){  //function to move the circle
+    movement(context){  //function to move the Square
 
-        if (this.x_pos + 30 >= canvas.width) { 
-            this.speed = -this.speed
-            this.x_pos = canvas.width - 31;
-        }
+        //if (this.x_pos + 30 >= canvas.width) { 
+    //        this.speed = -this.speed
+  //          this.x_pos = canvas.width - 31;
+//        }
         //if (this.x_pos - 30 <= 0) { 
         //    this.speed = -this.speed
         //    this.x_pos = 31;
         //}
-        if (this.y_pos + 31 >= 655) {
-            this.gravity = 0
+       // if (this.y_pos + 31 >= 655) {
+       //     this.gravity = 0
             //this.y_pos = 655 - 29;
-        }
+        //}
+        //LineEquation();
+        let mu = this.restitution
         let LineX1 = drawTriangle.point1_x;
         let LineY1 = drawTriangle.point1_y;
         let LineX2 = drawTriangle.point2_x;
@@ -191,38 +199,43 @@ class newCircle {
         this.x_pos += this.speed;
         this.y_pos += this.gravity;
 
-        if (SlopeYValue > this.y_pos + 32) {
+        let nextX = this.x_pos + this.speed;
+        let nextSlopeY = (-this.LineM * nextX) + this.LineC;
+
+        if (SlopeYValue > this.y_pos + 60) {
             this.gravity += 0.1633333333;
             Array_of_y_speed[index] = this.gravity;
             index += 1;
         }
-        if (SlopeYValue <= this.y_pos + 32) {
-            this.gravityStorage += Math.sin(this.radians) * 0.1633333333;
-            this.speed = Math.cos(this.radians) * this.gravityStorage
-            this.y_pos = this.y_pos + Math.sin(this.radians) * this.gravityStorage
-            this.gravity = 0
+        if (SlopeYValue <= this.y_pos + 60) {
+            this.y_pos = nextSlopeY - 60;
+            this.gravityStorage -= Math.sin(this.radians) * 0.1633333333;
+            this.speed += (-9.8 * (Math.sin(radians) + mu * Math.cos(radians))) / 60;
+            //this.y_pos -= Math.sin(this.radians) * this.gravityStorage; 
+            this.gravity = 0;
             Array_of_y_speed[index] = this.gravityStorage;
             index += 1;
         }
-        if (this.y_pos + 30 >= 655) {
-            if (this.speed < 0) {
-                this.speed = Math.abs(this.speed)
-                this.momentum = (this.speed * this.mass) * 60. 
-                this.friction = ((this.mass * 9.8) * this.restitution) / 60 
-                this.Momentum_decrease_via_friction = (this.momentum - this.friction) / (60 * this.mass)
-                this.speed = -this.Momentum_decrease_via_friction
-                this,gravityStorage = 0
+        //if (this.y_pos + 60 >= 655) {
+        //    if (this.speed < 0) {
+        //        this.speed = Math.abs(this.speed)
+        //        this.momentum = (this.speed * this.mass) * 60. 
+        //        this.friction = ((this.mass * 9.8) * this.restitution) / 60 
+        //        this.Momentum_decrease_via_friction = (this.momentum - this.friction) / (60 * this.mass)
+        //        this.speed = -this.Momentum_decrease_via_friction
+        //        this,gravityStorage = 0
                 //this.speed = -this.speed
-            }
-            else {
-                this.momentum = (this.speed * this.mass) * 60. // 3600
-                this.friction = ((this.mass * 9.8) * this.restitution) / 60 // 0.735
-                this.Momentum_decrease_via_friction = (this.momentum - this.friction) / (60 * this.mass)
-                this.speed = this.Momentum_decrease_via_friction
-            }
-        }
+        //    }
+            //else {
+            //    this.momentum = (this.speed * this.mass) * 60. // 3600
+            //    this.friction = ((this.mass * 9.8) * this.restitution) / 60 // 0.735
+            //    this.Momentum_decrease_via_friction = (this.momentum - this.friction) / (60 * this.mass)
+            //    this.speed = this.Momentum_decrease_via_friction
+            //}
+        //}
         Array_of_x_speed[index] = this.speed;
-        this.drawNew(context);      //draws the circle at the new position
+        this.drawNew(context);      //draws the Square at the new position
+        context.fillStyle = 'red'
         context.fillRect(0, 655, canvas.width, canvas.height - 655); // Draws the ground
     }
 }
@@ -272,45 +285,52 @@ class newTriangle {
     }
 }
 
-let draw_circle = new newCircle(x_pos, y_pos, speed, gravity, Momentum_decrease_via_friction, mass, friction, restitution, radians, LineC, LineX, LineM, gravityStorage)    //creates a new circle object
+let draw_square = new newSquare(x_pos, y_pos, speed, gravity, Momentum_decrease_via_friction, mass, friction, restitution, radians, LineC, LineX, LineM, gravityStorage)    //creates a new Square object
 let drawTriangle = new newTriangle(0, 200, 2 * canvas.width/3, 655, 0, 655, 0, 0, radians)
 let drawBounds = new newTriangle(0,0, canvas.width, 0, canvas.width, 655, 0, 655)
 
-function drawObjects() {     //function to animate the circle
+function drawObjects() {     //function to animate the Square
     if (isPaused) {
         return;
     }
     else {
         requestAnimationFrame(drawObjects);      //calls drawObjects again for the next frame
         context.clearRect(0, 0, canvas.width, canvas.height);   //clears the canvas for the next frame
-        draw_circle.movement(context);      // calls the movement function to update position and draw the circle
+        draw_square.movement(context);      // calls the movement function to update position and draw the square
         drawTriangle.drawNewTriangle(context);
         drawBounds.drawNewBounds(context)
         const speedDisplay = document.getElementById("SpeedValue");
-        speedDisplay.textContent = draw_circle.speed.toFixed(2);
+        speedDisplay.textContent = draw_square.speed.toFixed(2);
         const FallingSpeed = document.getElementById("YSpeedValue");
-        FallingSpeed.textContent = draw_circle.gravityStorage.toFixed(2);
+        FallingSpeed.textContent = draw_square.gravityStorage.toFixed(2);
     }
 }
 
 const DrawButton = document.getElementById("Draw");     //Gets the Draw button from the HTML
 DrawButton.addEventListener("click", () => {  //Checks when the button is clicked
-    if (CircleDrawn == false){
+    if (SquareDrawn == false){
         if (input() == true){       //Calls the input function to get speed from user
-            draw_circle.speed = initial_x_speed;      //updates the circle's speed with the user input
-            draw_circle.gravity = -initial_y_speed;  //updates the circle's gravity with the user input
+            let startX = canvas.width / 3;
+            draw_square.speed = initial_x_speed; 
+            draw_square.gravity = initial_y_speed;
             drawTriangle.radians = radians
-            LineEquation();
-            draw_circle.radians = radians
+            draw_square.radians = radians
             drawTriangle.updatePoints();
-            let startSlopeY = drawTriangle.point1_y;
-            y_pos = startSlopeY - 30;
-            draw_circle.y_pos = y_pos;
-            draw_circle.gravity = 0;
-            draw_circle.gravityStorage = 0;
+            let LineX1 = drawTriangle.point1_x;
+            let LineY1 = drawTriangle.point1_y;
+            let LineX2 = drawTriangle.point2_x;
+            let LineY2 = drawTriangle.point2_y;
+
+            let LineM = (LineY2 - LineY1) / (LineX2 - LineX1);
+            let LineC = LineY1 - (LineM * LineX1);
+            //y_pos = startSlopeY - 55;
+            draw_square.y_pos = (LineM * startX + LineC) - 60;
+            draw_square.x_pos = startX;
+            draw_square.gravity = 0;
+            draw_square.gravityStorage = initial_y_speed
             alert("Initial X Speed: " + initial_x_speed.toFixed(2) + "Initial Y Speed: " + (-initial_y_speed).toFixed(2));
             drawObjects();       //Calls the drawObjects function to start the animation
-            CircleDrawn = true;
+            SquareDrawn = true;
         }
         }
     }
@@ -324,4 +344,4 @@ GraphButton.addEventListener("click", () => {
 
 drawTriangle.drawNewTriangle(context);
 drawBounds.drawNewBounds(context)
-draw_circle.drawNew(context)
+draw_square.drawNew(context)
