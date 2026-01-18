@@ -34,3 +34,12 @@ Accel.addEventListener('mouseover', () => {
 Accel.addEventListener('mouseout', () => {
     background.style.backgroundImage = "";
 });
+
+const slopeHtml = document.getElementById('Slopes');
+slopeHtml.addEventListener('mouseover', () => {
+    background.style.backgroundImage = "url('slopePic.png')";
+});
+
+slopeHtml.addEventListener('mouseout', () => {
+    slopeHtml.style.backgroundImage = "";
+});

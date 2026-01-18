@@ -350,3 +350,51 @@ body {
     background-color: #790000;
     cursor: pointer;
 }
+
+#FrictionSlider {
+    position: absolute;
+    left: 8%;
+    top :13%;
+} 
+#FrictionTag {
+    position: absolute;
+    left: 8%;
+    top: 14%;
+}
+
+#pastGraphs1 {
+    position: absolute;
+    top: 60px;
+    right: 10px;
+    width: 30px;
+    height: 30px;
+}
+#pastGraphs2 {
+    position: absolute;
+    top: 80px;
+    right: 10px;
+    width: 30px;
+    height: 30px;
+}
+
+#pastGraphs3 {
+    position: absolute;
+    top: 100px;
+    right: 10px;
+    width: 30px;
+    height: 30px;
+}
+#pastGraphs4 {
+    position: absolute;
+    top: 120px;
+    right: 10px;
+    width: 30px;
+    height: 30px;
+}
+#pastGraphs5 {
+    position: absolute;
+    top: 140px;
+    right: 10px;
+    width: 30px;
+    height: 30px;
+}

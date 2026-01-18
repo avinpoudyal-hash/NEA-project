@@ -4,14 +4,12 @@ var speed = 0
 var mass = 10
 var elasticity = elasticityValue
 var elasticityValue = 0
-let restitution = 10
+let restitution = 0.6
 let timer = 0
 let gravity = 0
 let friction = 0
 let CircleDrawn = false
-friction = ((mass * 9.8) * restitution) / 60 //PER FRAME FRICTION DECREASING MOMENTUM   0.735
-momentum = (speed * mass) * 60 //INITIAL MOMENTUM   (assume speed = 12)  3600
-Momentum_decrease_via_friction = 0
+friction = 0.3
 index = 0
 var Array_of_y_speed = []
 var Array_of_x_speed = []
@@ -19,7 +17,17 @@ var theta = 0
 var radians = theta * (Math.PI / 180);
 var initial_x_speed = 0;
 var initial_y_speed = 0;
-
+var SavedArray1_x = []
+var SavedArray1_y = []
+var SavedArray2_x = []
+var SavedArray2_y = []
+var SavedArray3_x = []
+var SavedArray3_y = []
+var SavedArray4_x = []
+var SavedArray4_y = []
+var SavedArray5_x = []
+var SavedArray5_y = []
+var SavedCount = 0
 var isPaused = false;
 
 function PauseCheck() {
@@ -123,16 +131,16 @@ context.fillStyle = "red";
 context.fillRect(0, 655, canvas.width, canvas.height - 655); // Draws the ground
 
 class newCircle {
-    constructor(x_pos, y_pos, speed, elasticity, gravity, Momentum_decrease_via_friction, mass, friction, restitution){   //constructor function to set up the circle
+    constructor(x_pos, y_pos, speed, elasticity, gravity, mass, friction, restitution){   //constructor function to set up the circle
     this.x_pos = x_pos
     this.y_pos = y_pos
     this.speed = speed
     this.elasticity = elasticity
     this.gravity = gravity
-    this.Momentum_decrease_via_friction = Momentum_decrease_via_friction
     this.mass = mass
     this.friction = friction
     this.restitution = restitution
+    this.radians 
     }
     drawNew(context){   //function to draw the circle
 
@@ -140,6 +148,7 @@ class newCircle {
         context.arc(this.x_pos, this.y_pos, 30, 0, Math.PI * 2, false)  //draws circle at x_pos, y_pos with radius 50
         context.fillStyle = 'red';
         context.fill();
+        context.strokeStyle = 'black'
         context.stroke();   //draws the outline of the circle
         context.closePath();    //ends drawing
     }
@@ -166,36 +175,17 @@ class newCircle {
         this.gravity = this.gravity + 0.1633333
         if (this.y_pos + 30 >= 655) {
             if (this.speed < 0) {
-                this.speed = Math.abs(this.speed)
-                this.momentum = (this.speed * this.mass) * 60. 
-                this.friction = ((this.mass * 9.8) * this.restitution) / 60 
-                this.Momentum_decrease_via_friction = (this.momentum - this.friction) / (60 * this.mass)
-                this.speed = -this.Momentum_decrease_via_friction
-                //this.speed = -this.speed
+                let speedDecrease = this.friction * 9.8 * (this.restitution) / 60
+                this.speed += speedDecrease
             }
             else {
-                this.momentum = (this.speed * this.mass) * 60. // 3600
-                this.friction = ((this.mass * 9.8) * this.restitution) / 60 // 0.735
-                this.Momentum_decrease_via_friction = (this.momentum - this.friction) / (60 * this.mass)
-                this.speed = this.Momentum_decrease_via_friction
+                let speedDecrease = this.friction * 9.8 * (this.restitution) / 60
+                this.speed -= speedDecrease
             }
-        if (this.speed > 0 && this.x_pos + 30 >= 300 && this.y_pos + 30 >= 500 && this.y_pos + 30 <= 530 && this.x_pos <= 500) {
-            this.speed = -this.speed * this.elasticity;
-            this.x_pos = 300 - 29;
         }
-        if (this.speed < 0 && this.x_pos - 30 <= 500 && this.y_pos + 30 >= 500 && this.y_pos + 30 <= 530 && this.x_pos >= 300) {
-            this.speed = -this.speed * this.elasticity;
-            this.x_pos = 500 + 29;
+        if (this.speed > -0.05 && this.speed < 0.05) {
+            this.speed = 0
         }
-        if (this.gravity < 0 && this.y_pos - 30 <= 520 && this.y_pos - 30 >= 500 && this.x_pos + 30 >= 300 && this.x_pos - 30 <= 500) {
-            this.gravity = -this.gravity * this.elasticity;
-            this.y_pos = 520 + 31;
-        }
-        if (this.gravity > 0 && this.y_pos + 30 >= 500 && this.y_pos + 30 <= 520 && this.x_pos + 30 >= 300 && this.x_pos - 30 <= 500) {
-            this.gravity = -this.gravity * this.elasticity;
-            this.y_pos = 500 - 29;
-        }
-    }
         Array_of_x_speed[index] = this.speed;
         Array_of_y_speed[index] = this.gravity;
         index += 1;
@@ -224,8 +214,7 @@ class newWall {
     }
 }
 
-let draw_circle = new newCircle(x_pos, y_pos, speed, elasticity, gravity, Momentum_decrease_via_friction, mass, friction, restitution)    //creates a new circle object
-let drawWall = new newWall(300, 500, 200, 20);
+let draw_circle = new newCircle(x_pos, y_pos, speed, elasticity, gravity, mass, friction, restitution)    //creates a new circle object
 
 
 function drawObjects() {     //function to animate the circle
@@ -243,7 +232,7 @@ function drawObjects() {     //function to animate the circle
         FallingSpeed.textContent = draw_circle.gravity.toFixed(2);
         const ElasticityTag = document.getElementById("ElasticityValue");
         ElasticityTag.textContent = elasticity
-        drawWall.drawNewWall(context);
+        //drawWall.drawNewWall(context);
     }
 }
 
@@ -273,6 +262,54 @@ const GraphButton = document.getElementById("GraphButton");
 GraphButton.addEventListener("click", () => {
     localStorage.setItem("SpeedArray", JSON.stringify(Array_of_x_speed));
     localStorage.setItem("y_SpeedArray", JSON.stringify(Array_of_y_speed));
+    SavedCount = Number(localStorage.getItem("SavedCount", (SavedCount)))
+    let saving = confirm("Would you like to save the graph of this simulation under Saved Values", SavedCount)
+    if (saving) {
+        if (SavedCount == 0) {
+            localStorage.setItem("SavedArray1_x", JSON.stringify(Array_of_x_speed))
+            localStorage.setItem("SavedArray1_y", JSON.stringify(Array_of_y_speed))
+            SavedCount += 1
+            SavedCount = Number(localStorage.setItem("SavedCount", (SavedCount)))
+        }
+        else if (SavedCount == 1) {
+            localStorage.setItem("SavedArray2_x", JSON.stringify(Array_of_x_speed))
+            localStorage.setItem("SavedArray2_y", JSON.stringify(Array_of_y_speed))
+            SavedCount += 1
+            SavedCount = Number(localStorage.setItem("SavedCount", (SavedCount)))
+        }
+        else if (SavedCount == 2) {
+            localStorage.setItem("SavedArray3_x", JSON.stringify(Array_of_x_speed))
+            localStorage.setItem("SavedArray3_y", JSON.stringify(Array_of_y_speed))
+            SavedCount += 1
+            SavedCount = Number(localStorage.setItem("SavedCount", (SavedCount)))
+        }
+        else if (SavedCount == 3) {
+            localStorage.setItem("SavedArray4_x", JSON.stringify(Array_of_x_speed))
+            localStorage.setItem("SavedArray4_y", JSON.stringify(Array_of_y_speed))
+            SavedCount += 1
+            SavedCount = Number(localStorage.setItem("SavedCount", (SavedCount)))
+        }
+        else if (SavedCount == 4) {
+            localStorage.setItem("SavedArray5_x", JSON.stringify(Array_of_x_speed))
+            localStorage.setItem("SavedArray5_y", JSON.stringify(Array_of_y_speed))
+            SavedCount = 0
+            SavedCount = Number(localStorage.setItem("SavedCount", (SavedCount)))
+        }
+        else {
+            
+        }
+    }
 });
-
+//localStorage.setItem("SavedCount", (SavedCount))
 elasticityUpdate();
+
+/*
+so if i make localstorage for count and increment each time to 5 different arrays
+so if count == 1 { array1 }
+count == 2 { array2 } etc
+when count == 5 { array 5}
+    then count == 0
+
+
+
+*/

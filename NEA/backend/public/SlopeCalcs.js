@@ -1,7 +1,7 @@
 var x_pos = 1
 var y_pos = 200
 var speed = 0
-var mass = 50
+var mass = 10
 let restitution = 0.6
 let timer = 0
 let gravity = 0
@@ -22,7 +22,17 @@ var LineC = 0
 var LineX = 0
 var LineM = 0
 let gravityStorage = 0
-
+var SavedArray1_x = []
+var SavedArray1_y = []
+var SavedArray2_x = []
+var SavedArray2_y = []
+var SavedArray3_x = []
+var SavedArray3_y = []
+var SavedArray4_x = []
+var SavedArray4_y = []
+var SavedArray5_x = []
+var SavedArray5_y = []
+var SavedCount = 0
 
 var isPaused = false;
 
@@ -45,8 +55,6 @@ PauseButton.addEventListener("click", PauseCheck);
 
 
 
-//INPUT FUNCTION BELOW
-
 function input(){
     theta = prompt("Enter angle value (in degrees):");
     if (theta == null) { 
@@ -63,9 +71,9 @@ function input(){
         alert("Under 0 inputted, setting to 0");    //alerts user
         theta = 0;  //sets theta to 0
     }
-    if (verify > 90){   
-        alert("number too high, setting to 90")     //alerts user
-        theta = 90;     
+    if (verify > 89){   
+        alert("number too high, setting to 89")     //alerts user
+        theta = 89;     
     }
     if (verify >= 0 && verify <=90) {   
         theta = verify;     
@@ -99,7 +107,7 @@ function input(){
     if (verify >= -15 && verify <=15) {   //valid input range
         speed = verify;     //sets speed to inputted value
         initial_x_speed = speed * Math.cos(radians);
-        initial_y_speed = speed * Math.sin(radians);
+        initial_y_speed = speed * Math.sin(radians)
         if (verify == 0){   //checks if speed is 0
             alert("speed is 0, Square will not move");  //alerts user that the Square will not move
         }
@@ -107,9 +115,6 @@ function input(){
 
     return true;
 }
-
-
-//DRAWING CODE BELOW
 
 let canvas = document.getElementById("TestScreen")
     // Makes the canvas the screen shown on the "Test.html" file
@@ -142,12 +147,11 @@ function LineEquation(){
 }
 
 class newSquare {
-    constructor(x_pos, y_pos, speed, gravity, Momentum_decrease_via_friction, mass, friction, restitution, radians, LineC, LineM, LineX, gravityStorage){   //constructor function to set up the Square
+    constructor(x_pos, y_pos, speed, gravity, mass, friction, restitution, radians, LineC, LineM, LineX, gravityStorage){   //constructor function to set up the Square
     this.x_pos = x_pos
     this.y_pos = y_pos
     this.speed = speed
     this.gravity = gravity
-    this.Momentum_decrease_via_friction = Momentum_decrease_via_friction
     this.mass = mass
     this.friction = friction
     this.restitution = restitution
@@ -156,9 +160,6 @@ class newSquare {
     this.LineX = LineX
     this.LineM = LineM
     this.gravityStorage = gravityStorage
-    //}
-    //updateGravity() {
-        //this.gravityAdditionX = this.mass * 0.16333333333 * (Math.sin(this.radians));
     }
     drawNew(context){   //function to draw the Square
         context.save()
@@ -174,21 +175,6 @@ class newSquare {
         context.restore()
     }
     movement(context){  //function to move the Square
-
-        //if (this.x_pos + 30 >= canvas.width) { 
-    //        this.speed = -this.speed
-  //          this.x_pos = canvas.width - 31;
-//        }
-        //if (this.x_pos - 30 <= 0) { 
-        //    this.speed = -this.speed
-        //    this.x_pos = 31;
-        //}
-       // if (this.y_pos + 31 >= 655) {
-       //     this.gravity = 0
-            //this.y_pos = 655 - 29;
-        //}
-        //LineEquation();
-        let mu = this.restitution
         let LineX1 = drawTriangle.point1_x;
         let LineY1 = drawTriangle.point1_y;
         let LineX2 = drawTriangle.point2_x;
@@ -196,50 +182,50 @@ class newSquare {
         this.LineC = 655 - (LineX2 * (Math.tan(this.radians)))
         this.LineM = LineM = -((LineY2 - LineY1) / (LineX2 - LineX1))
         let SlopeYValue = (-this.LineM * this.x_pos) +this.LineC
-        this.x_pos += this.speed;
         this.y_pos += this.gravity;
 
-        let nextX = this.x_pos + this.speed;
-        let nextSlopeY = (-this.LineM * nextX) + this.LineC;
+        let nextSlopeY = (-this.LineM * this.x_pos) + this.LineC;
 
-        if (SlopeYValue > this.y_pos + 60) {
+        if (SlopeYValue > this.y_pos + 55) {
             this.gravity += 0.1633333333;
             Array_of_y_speed[index] = this.gravity;
             index += 1;
         }
-        if (SlopeYValue <= this.y_pos + 60) {
-            this.y_pos = nextSlopeY - 60;
-            this.gravityStorage -= Math.sin(this.radians) * 0.1633333333;
-            this.speed += (-9.8 * (Math.sin(radians) + mu * Math.cos(radians))) / 60;
-            //this.y_pos -= Math.sin(this.radians) * this.gravityStorage; 
-            this.gravity = 0;
-            Array_of_y_speed[index] = this.gravityStorage;
+        if (SlopeYValue <= this.y_pos + 55) {
+            this.y_pos = nextSlopeY - 55;
+            this.gravity = 0
+            if (this.speed > 0.05){
+                let speedDecrease = (9.8 * (Math.sin(this.radians) - (this.restitution) * Math.cos(this.radians))) / 60
+                this.speed += speedDecrease
+                this.x_pos += this.speed
+                this.gravity = 10000
+            }
+            else if (this.speed < -0.05) {
+                let speedDecrease = (9.8  *(Math.sin(this.radians) + (this.restitution) * Math.cos(this.radians))) / 60
+                this.speed += speedDecrease
+                this.x_pos += this.speed
+            }
+            else if (this.speed < 0.05 && this.speed > -0.05){
+                let speedDecrease = (9.8 * (Math.sin(this.radians) - (this.restitution) * Math.cos(this.radians))) / 60
+
+                //let StaticFriction = (this.restitution) * Math.cos(this.radians)
+                if (this.radians > Math.atan(this.restitution) || this.restitution == 0) {
+                    this.speed += speedDecrease
+                    this.x_pos += this.speed
+                }
+                else {
+                    this.speed = 0
+                }
+            }
+            Array_of_y_speed[index] = (this.speed * Math.tan(this.radians));
             index += 1;
         }
-        //if (this.y_pos + 60 >= 655) {
-        //    if (this.speed < 0) {
-        //        this.speed = Math.abs(this.speed)
-        //        this.momentum = (this.speed * this.mass) * 60. 
-        //        this.friction = ((this.mass * 9.8) * this.restitution) / 60 
-        //        this.Momentum_decrease_via_friction = (this.momentum - this.friction) / (60 * this.mass)
-        //        this.speed = -this.Momentum_decrease_via_friction
-        //        this,gravityStorage = 0
-                //this.speed = -this.speed
-        //    }
-            //else {
-            //    this.momentum = (this.speed * this.mass) * 60. // 3600
-            //    this.friction = ((this.mass * 9.8) * this.restitution) / 60 // 0.735
-            //    this.Momentum_decrease_via_friction = (this.momentum - this.friction) / (60 * this.mass)
-            //    this.speed = this.Momentum_decrease_via_friction
-            //}
-        //}
         Array_of_x_speed[index] = this.speed;
         this.drawNew(context);      //draws the Square at the new position
         context.fillStyle = 'red'
         context.fillRect(0, 655, canvas.width, canvas.height - 655); // Draws the ground
     }
 }
-    
 class newTriangle {
     constructor(point1_x, point1_y, point2_x, point2_y, point3_x, point3_y, point4_x, point4_y, radians){
         this.point1_x = point1_x
@@ -251,7 +237,6 @@ class newTriangle {
         this.point4_x = point4_x
         this.point4_y = point4_y
         this.radians = radians
-        //this.point1_y = 655 - (this.point2_x * (Math.tan(this.radians)))
 
     }
     updatePoints() {
@@ -285,7 +270,7 @@ class newTriangle {
     }
 }
 
-let draw_square = new newSquare(x_pos, y_pos, speed, gravity, Momentum_decrease_via_friction, mass, friction, restitution, radians, LineC, LineX, LineM, gravityStorage)    //creates a new Square object
+let draw_square = new newSquare(x_pos, y_pos, speed, gravity, mass, friction, restitution, radians, LineC, LineX, LineM, gravityStorage)    //creates a new Square object
 let drawTriangle = new newTriangle(0, 200, 2 * canvas.width/3, 655, 0, 655, 0, 0, radians)
 let drawBounds = new newTriangle(0,0, canvas.width, 0, canvas.width, 655, 0, 655)
 
@@ -295,14 +280,15 @@ function drawObjects() {     //function to animate the Square
     }
     else {
         requestAnimationFrame(drawObjects);      //calls drawObjects again for the next frame
+        requestAnimationFrame(frictionUpdate)
         context.clearRect(0, 0, canvas.width, canvas.height);   //clears the canvas for the next frame
         draw_square.movement(context);      // calls the movement function to update position and draw the square
         drawTriangle.drawNewTriangle(context);
         drawBounds.drawNewBounds(context)
         const speedDisplay = document.getElementById("SpeedValue");
         speedDisplay.textContent = draw_square.speed.toFixed(2);
-        const FallingSpeed = document.getElementById("YSpeedValue");
-        FallingSpeed.textContent = draw_square.gravityStorage.toFixed(2);
+        const FrictionTag = document.getElementById("FrictionValue");
+        FrictionTag.textContent = frictionValue
     }
 }
 
@@ -311,7 +297,8 @@ DrawButton.addEventListener("click", () => {  //Checks when the button is clicke
     if (SquareDrawn == false){
         if (input() == true){       //Calls the input function to get speed from user
             let startX = canvas.width / 3;
-            draw_square.speed = initial_x_speed; 
+            frictionValue = document.getElementById("FrictionSlider").value
+            draw_square.speed = speed 
             draw_square.gravity = initial_y_speed;
             drawTriangle.radians = radians
             draw_square.radians = radians
@@ -323,11 +310,11 @@ DrawButton.addEventListener("click", () => {  //Checks when the button is clicke
 
             let LineM = (LineY2 - LineY1) / (LineX2 - LineX1);
             let LineC = LineY1 - (LineM * LineX1);
-            //y_pos = startSlopeY - 55;
-            draw_square.y_pos = (LineM * startX + LineC) - 60;
+            draw_square.y_pos = (LineM * startX + LineC) - 50;
             draw_square.x_pos = startX;
             draw_square.gravity = 0;
             draw_square.gravityStorage = initial_y_speed
+            draw_square.restitution = frictionValue
             alert("Initial X Speed: " + initial_x_speed.toFixed(2) + "Initial Y Speed: " + (-initial_y_speed).toFixed(2));
             drawObjects();       //Calls the drawObjects function to start the animation
             SquareDrawn = true;
@@ -336,12 +323,61 @@ DrawButton.addEventListener("click", () => {  //Checks when the button is clicke
     }
 );
 
+function frictionUpdate() {
+        requestAnimationFrame(frictionUpdate)
+        frictionValue = document.getElementById("FrictionSlider").value
+        const FrictionTag = document.getElementById("FrictionValue");
+        FrictionTag.textContent = frictionValue
+}
+
+
 const GraphButton = document.getElementById("GraphButton");
 GraphButton.addEventListener("click", () => {
     localStorage.setItem("SpeedArray", JSON.stringify(Array_of_x_speed));
     localStorage.setItem("y_SpeedArray", JSON.stringify(Array_of_y_speed));
 });
-
+GraphButton.addEventListener("click", () => {
+    localStorage.setItem("SpeedArray", JSON.stringify(Array_of_x_speed));
+    localStorage.setItem("y_SpeedArray", JSON.stringify(Array_of_y_speed));
+    SavedCount = Number(localStorage.getItem("SavedCount", (SavedCount)))
+    let saving = confirm("Would you like to save the graph of this simulation under Saved Values", SavedCount)
+    if (saving) {
+        if (SavedCount == 0) {
+            localStorage.setItem("SavedArray1_x", JSON.stringify(Array_of_x_speed))
+            localStorage.setItem("SavedArray1_y", JSON.stringify(Array_of_y_speed))
+            SavedCount += 1
+            SavedCount = Number(localStorage.setItem("SavedCount", (SavedCount)))
+        }
+        else if (SavedCount == 1) {
+            localStorage.setItem("SavedArray2_x", JSON.stringify(Array_of_x_speed))
+            localStorage.setItem("SavedArray2_y", JSON.stringify(Array_of_y_speed))
+            SavedCount += 1
+            SavedCount = Number(localStorage.setItem("SavedCount", (SavedCount)))
+        }
+        else if (SavedCount == 2) {
+            localStorage.setItem("SavedArray3_x", JSON.stringify(Array_of_x_speed))
+            localStorage.setItem("SavedArray3_y", JSON.stringify(Array_of_y_speed))
+            SavedCount += 1
+            SavedCount = Number(localStorage.setItem("SavedCount", (SavedCount)))
+        }
+        else if (SavedCount == 3) {
+            localStorage.setItem("SavedArray4_x", JSON.stringify(Array_of_x_speed))
+            localStorage.setItem("SavedArray4_y", JSON.stringify(Array_of_y_speed))
+            SavedCount += 1
+            SavedCount = Number(localStorage.setItem("SavedCount", (SavedCount)))
+        }
+        else if (SavedCount == 4) {
+            localStorage.setItem("SavedArray5_x", JSON.stringify(Array_of_x_speed))
+            localStorage.setItem("SavedArray5_y", JSON.stringify(Array_of_y_speed))
+            SavedCount = 0
+            SavedCount = Number(localStorage.setItem("SavedCount", (SavedCount)))
+        }
+        else {
+            
+        }
+    }
+});
 drawTriangle.drawNewTriangle(context);
 drawBounds.drawNewBounds(context)
 draw_square.drawNew(context)
+frictionUpdate()

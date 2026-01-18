@@ -6,18 +6,24 @@ var count = 0;
 var point_1 = 340;
 let graph_Array_for_speed = JSON.parse(localStorage.getItem("SpeedArray"))
 let graph_Array_for_y_speed = JSON.parse(localStorage.getItem("y_SpeedArray"))
+let tempx = graph_Array_for_speed
+let tempy = graph_Array_for_y_speed
 var SpeedValue = 800;
-
-
+var creationCount = 0
 let graph_canvas = document.getElementById("GraphCanvas")
-
+let pressed = false
 let graph_context = graph_canvas.getContext("2d");
-
+let alphaLevel = 1
 var graph_window_height = window.innerHeight;
 var graph_window_width = window.innerWidth;
-
+var colourX = 'red'
+var colourY = '#00FBFF';
 graph_canvas.width = graph_window_width;
 graph_canvas.height = graph_window_height;
+let pressed2 = false
+let pressed3 = false
+let pressed4 = false
+let pressed5 = false
 
 graph_canvas.style.background = "rgba(255, 255, 255, 1)"
 
@@ -31,10 +37,11 @@ class graph_newCircle {
     }
     drawNew(graph_context){   //function to draw the circle
         graph_context.beginPath();    //begin drawing
+        graph_context.globalAlpha = alphaLevel
         graph_context.arc(this.graph_x_pos, this.graph_y_pos, 4, 0, Math.PI * 2, false)
-        graph_context.fillStyle = 'red';
+        graph_context.fillStyle = colourX;
         graph_context.fill();
-        graph_context.strokeStyle = 'red';
+        graph_context.strokeStyle = colourX;
         graph_context.stroke();   //draws the outline of the circle
         graph_context.closePath();    //ends drawing
     }
@@ -81,9 +88,11 @@ class xAxis {
         context.closePath();
     }
     draw_x_points(context){
+        this.y_pos = 800
         for (let i = 0; i <= 16; i++){
             this.drawXAxis(context);
             this.y_pos -= 50;
+            console.log("drawing the x axis", i)
         }
 }
 }
@@ -94,10 +103,11 @@ class graph_newCircle_yaxis {
     }
     drawNew(graph_context){   //function to draw the circle
         graph_context.beginPath();    //begin drawing
+        graph_context.globalAlpha = alphaLevel
         graph_context.arc(this.graph_x_pos, this.graph_y_pos, 4, 0, Math.PI * 2, false)
-        graph_context.fillStyle = 'blue';
+        graph_context.fillStyle = colourY;
         graph_context.fill();
-        graph_context.strokeStyle = 'blue';
+        graph_context.strokeStyle = colourY;
         graph_context.stroke();   //draws the outline of the circle
         graph_context.closePath();    //ends drawing
     }
@@ -128,7 +138,8 @@ let graph_draw_circle_yaxis = new graph_newCircle_yaxis(graph_x_pos, graph_y_pos
 
 
 function moveCircle() {     //function to animate the circle
-        requestAnimationFrame(moveCircle);      //calls moveCircle again for the next frame
+    console.log("If you see this, this is inside the moveCircle()")
+        //requestAnimationFrame(moveCircle);      //calls moveCircle again for the next frame
         graph_draw_circle_yaxis.drawing(graph_context);
         graph_draw_circle.drawing(graph_context);      // calls the movement function to update position and draw the circle
         first_points.drawNewWall(graph_context);
@@ -141,8 +152,185 @@ function moveCircle() {     //function to animate the circle
         drawWall.drawNewWall(graph_context);
 }
 
-const StartGraphButton = document.getElementById("ShowGraph")
-//StartGraphButton.addEventListener("click", moveCircle);
+function drawingFunction(){
+            graph_index = 0
+            graph_index_y = 0
+            alphaLevel = 1
+            graph_Array_for_speed = tempx
+            graph_Array_for_y_speed = tempy
+            graph_draw_circle.graph_x_pos = graph_x_pos;
+            graph_draw_circle_yaxis.graph_x_pos = graph_x_pos;
+            graph_draw_circle_yaxis.drawing(graph_context);
+            graph_draw_circle.drawing(graph_context);
+}
+function drawingSaved() {
+            graph_index = 0
+            graph_index_y = 0
+            alphaLevel = 0.4
+            graph_draw_circle.graph_x_pos = graph_x_pos;
+            graph_draw_circle_yaxis.graph_x_pos = graph_x_pos;
+            graph_draw_circle_yaxis.drawing(graph_context);
+            graph_draw_circle.drawing(graph_context);
+}
+function CheckingGraphs() {
+    if (pressed == true) {
+        colourX = '#FFA500'
+        colourY = '#005AFF'
+        graph_Array_for_speed = JSON.parse(localStorage.getItem("SavedArray1_x"));
+        graph_Array_for_y_speed = JSON.parse(localStorage.getItem("SavedArray1_y"));
+        drawingSaved()
+    }
+    if (pressed2 == true) {
+        colourX = '#FF006F'
+        colourY = '#00FF90'
+        graph_Array_for_speed = JSON.parse(localStorage.getItem("SavedArray2_x"));
+        graph_Array_for_y_speed = JSON.parse(localStorage.getItem("SavedArray2_y"));
+        drawingSaved()
+    }
+    if (pressed3 == true) {
+        colourX = '#F700FF'
+        colourY = '#009b1cff'
+        graph_Array_for_speed = JSON.parse(localStorage.getItem("SavedArray3_x"));
+        graph_Array_for_y_speed = JSON.parse(localStorage.getItem("SavedArray3_y"));
+        drawingSaved()
+    }
+    if (pressed4 == true) {
+        colourX = '#814f00ff'
+        colourY = '#4800bbff'
+        graph_Array_for_speed = JSON.parse(localStorage.getItem("SavedArray4_x"));
+        graph_Array_for_y_speed = JSON.parse(localStorage.getItem("SavedArray4_y"));
+        drawingSaved()
+    }
+    if (pressed5 == true) {
+        colourX = '#810000ff'
+        colourY = '#000477ff'
+        graph_Array_for_speed = JSON.parse(localStorage.getItem("SavedArray5_x"));
+        graph_Array_for_y_speed = JSON.parse(localStorage.getItem("SavedArray5_y"));
+        drawingSaved()
+    }
+}
+let checkbox1 = document.getElementById("pastGraphs1")
+let checkbox2 = document.getElementById("pastGraphs2")
+let checkbox3 = document.getElementById("pastGraphs3")
+let checkbox4 = document.getElementById("pastGraphs4")
+let checkbox5 = document.getElementById("pastGraphs5")
+
+checkbox1.addEventListener('change', () => {
+    if (pressed == false) {
+            console.log("this should work")
+            pressed = true;
+            graph_Array_for_speed = JSON.parse(localStorage.getItem("SavedArray1_x"));
+            graph_Array_for_y_speed = JSON.parse(localStorage.getItem("SavedArray1_y"));
+            colourX = '#FFA500'
+            colourY = '#005AFF'
+            moveCircle()
+            drawingSaved()
+            console.log("this should be working")
+    }
+    else if (pressed == true) {
+            pressed = false
+            graph_context.clearRect(0, 0, graph_canvas.width, graph_canvas.height)
+            CheckingGraphs()
+            colourX = 'red'
+            colourY = '#00FBFF';
+            drawingFunction()
+            moveCircle()
+    }
+});
+
+checkbox2.addEventListener('change', () => {
+    if (pressed2 == false) {
+            pressed2 = true;
+            console.log("this should work")
+            graph_Array_for_speed = JSON.parse(localStorage.getItem("SavedArray2_x"));
+            graph_Array_for_y_speed = JSON.parse(localStorage.getItem("SavedArray2_y"));
+            colourX = '#FF006F'
+            colourY = '#00FF90'
+            moveCircle()
+            drawingSaved()
+            console.log("this should be working")
+    }
+    else if (pressed2 == true) {
+            pressed2 = false
+            graph_context.clearRect(0, 0, graph_canvas.width, graph_canvas.height)
+            CheckingGraphs()
+            colourX = 'red'
+            colourY = '#00FBFF';
+            drawingFunction()
+            moveCircle()
+    }
+    }
+);    
+checkbox3.addEventListener('change', () => {
+    if (pressed3 == false) {
+            pressed3 = true;
+            console.log("this should work")
+            graph_Array_for_speed = JSON.parse(localStorage.getItem("SavedArray3_x"));
+            graph_Array_for_y_speed = JSON.parse(localStorage.getItem("SavedArray3_y"));
+            colourX = '#F700FF'
+            colourY = '#009b1cff'
+            moveCircle()
+            drawingSaved()
+            console.log("this should be working")
+    }
+    else if (pressed3 == true) {
+            pressed3 = false
+            graph_context.clearRect(0, 0, graph_canvas.width, graph_canvas.height)
+            CheckingGraphs()
+            colourX = 'red'
+            colourY = '#00FBFF';
+            drawingFunction()
+            moveCircle()
+    }
+    }
+);   
+checkbox4.addEventListener('change', () => {
+    if (pressed4 == false) {
+            pressed4 = true;
+            console.log("this should work")
+            graph_Array_for_speed = JSON.parse(localStorage.getItem("SavedArray4_x"));
+            graph_Array_for_y_speed = JSON.parse(localStorage.getItem("SavedArray4_y"));
+            colourX = '#814f00ff'
+            colourY = '#4800bbff'
+            moveCircle()
+            drawingSaved()
+            console.log("this should be working")
+    }
+    else if (pressed4 == true) {
+            pressed4 = false
+            graph_context.clearRect(0, 0, graph_canvas.width, graph_canvas.height)
+            CheckingGraphs()
+            colourX = 'red'
+            colourY = '#00FBFF';
+            drawingFunction()
+            moveCircle()
+    }
+    }
+);
+checkbox5.addEventListener('change', () => {
+    if (pressed5 == false) {
+            pressed5 = true;
+            console.log("this should work")
+            graph_Array_for_speed = JSON.parse(localStorage.getItem("SavedArray5_x"));
+            graph_Array_for_y_speed = JSON.parse(localStorage.getItem("SavedArray5_y"));
+            colourX = '#810000ff'
+            colourY = '#000477ff'
+            moveCircle()
+            drawingSaved()
+            console.log("this should be working")
+    }
+    else if (pressed5 == true) {
+            pressed5 = false
+            graph_context.clearRect(0, 0, graph_canvas.width, graph_canvas.height)
+            CheckingGraphs()
+            colourX = 'red'
+            colourY = '#00FBFF';
+            drawingFunction()
+            moveCircle()
+    }
+    }
+); 
+
 drawWall.drawNewWall(graph_context);
 first_points.drawNewWall(graph_context);
 second_points.drawNewWall(graph_context);

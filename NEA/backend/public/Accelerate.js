@@ -5,6 +5,17 @@ elasticity = 0.6
 var Array_for_speed = []
 var Array_of_y_speed = []
 index = 0
+var SavedArray1_x = []
+var SavedArray1_y = []
+var SavedArray2_x = []
+var SavedArray2_y = []
+var SavedArray3_x = []
+var SavedArray3_y = []
+var SavedArray4_x = []
+var SavedArray4_y = []
+var SavedArray5_x = []
+var SavedArray5_y = []
+var SavedCount = 0
 
 var isPaused = false;
 var acceleration = 0;
@@ -129,8 +140,6 @@ function moveCircle() {     //function to animate the circle
     }
 }
 
-//EVENT LISTENER BELOW
-
 const DrawButton = document.getElementById("Draw");     //Gets the Draw button from the HTML
 DrawButton.addEventListener("click", () => {  //Checks when the button is clicked
     if (input() == true){       //Calls the input function to get speed from user
@@ -139,17 +148,50 @@ DrawButton.addEventListener("click", () => {  //Checks when the button is clicke
     }
 });
 
-const ArrayButton = document.getElementById("ArrayButton");     //Gets the Array button from the HTML
-ArrayButton.addEventListener("click", () => {  //Checks when the button is clicked
-    alert(Array_for_speed);
-});
-//NEXT JOB
-// RESET BUTTON
-
 const GraphButton = document.getElementById("GraphButton");
 GraphButton.addEventListener("click", () => {
     localStorage.setItem("SpeedArray", JSON.stringify(Array_for_speed));
     localStorage.setItem("y_SpeedArray", JSON.stringify(Array_of_y_speed));
 });
-
+GraphButton.addEventListener("click", () => {
+    localStorage.setItem("SpeedArray", JSON.stringify(Array_of_x_speed));
+    localStorage.setItem("y_SpeedArray", JSON.stringify(Array_of_y_speed));
+    SavedCount = Number(localStorage.getItem("SavedCount", (SavedCount)))
+    let saving = confirm("Would you like to save the graph of this simulation under Saved Values", SavedCount)
+    if (saving) {
+        if (SavedCount == 0) {
+            localStorage.setItem("SavedArray1_x", JSON.stringify(Array_of_x_speed))
+            localStorage.setItem("SavedArray1_y", JSON.stringify(Array_of_y_speed))
+            SavedCount += 1
+            SavedCount = Number(localStorage.setItem("SavedCount", (SavedCount)))
+        }
+        else if (SavedCount == 1) {
+            localStorage.setItem("SavedArray2_x", JSON.stringify(Array_of_x_speed))
+            localStorage.setItem("SavedArray2_y", JSON.stringify(Array_of_y_speed))
+            SavedCount += 1
+            SavedCount = Number(localStorage.setItem("SavedCount", (SavedCount)))
+        }
+        else if (SavedCount == 2) {
+            localStorage.setItem("SavedArray3_x", JSON.stringify(Array_of_x_speed))
+            localStorage.setItem("SavedArray3_y", JSON.stringify(Array_of_y_speed))
+            SavedCount += 1
+            SavedCount = Number(localStorage.setItem("SavedCount", (SavedCount)))
+        }
+        else if (SavedCount == 3) {
+            localStorage.setItem("SavedArray4_x", JSON.stringify(Array_of_x_speed))
+            localStorage.setItem("SavedArray4_y", JSON.stringify(Array_of_y_speed))
+            SavedCount += 1
+            SavedCount = Number(localStorage.setItem("SavedCount", (SavedCount)))
+        }
+        else if (SavedCount == 4) {
+            localStorage.setItem("SavedArray5_x", JSON.stringify(Array_of_x_speed))
+            localStorage.setItem("SavedArray5_y", JSON.stringify(Array_of_y_speed))
+            SavedCount = 0
+            SavedCount = Number(localStorage.setItem("SavedCount", (SavedCount)))
+        }
+        else {
+            
+        }
+    }
+});
 

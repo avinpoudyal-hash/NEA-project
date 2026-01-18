@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="simulator.css">
 </head>
 <body>
-    <h1> Projectile Motion </h1>
+    <h1> Slope Simulation </h1>
     <button id="Quit_Button"> Home </button>
     <button id="Pause"> Pause/Unpause </button>
     <button id="Draw"> Draw! </button>
@@ -16,6 +16,8 @@
     <a href="Graph.html">
         <button id="GraphButton"> Show Graph </button>
     </a>
+    <p id="FrictionTag"> Frictional Coefficient: <span id="FrictionValue"></span></p>
+    <input type="range" id="FrictionSlider" min="0" max="1" step="0.1" value="FrictionValue">
     <button onclick="location.reload()" id="resetButton"> Reset Simulation </button>
     <canvas id="TestScreen"></canvas>
     <script src="SlopeCalcs.js"></script>
