@@ -1,6 +1,5 @@
 var usernameStorage = ''
 var passwordStorage = ''
-//import fs from 'fs';
 
 const generateHash = (string) => {
   let hash = 0;
@@ -32,8 +31,6 @@ submitButton.addEventListener('click', () => {
     else {
         usernameStorage = generateHash(username1)
         passwordStorage = generateHash(password1)
-        //localStorage.setItem('username', JSON.stringify(usernameStorage));
-        //localStorage.setItem('password', JSON.stringify(passwordStorage));
         fetch("http://127.0.0.1:5000/save", {
             method:"POST", 
             headers: {"Content-Type": "application/json"},

@@ -27,6 +27,26 @@ def upload():
         "INSERT INTO users (username, password) VALUES (?, ?)",
         (username, password)
     )
-
     conn.commit()
     conn.close()
+
+
+def login():
+    with open("mid.json", "r") as f:
+        dataLog = json.load(f)
+
+    username2 = dataLog["username"]
+    password2 = dataLog["password"]
+
+    conn = sqlite3.connect("users.db")
+    cursor = conn.cursor()
+    cursor.execute(
+        "SELECT username FROM users WHERE username=? AND password=?",
+        (username2, password2)
+    )
+    if not cursor.fetchone():
+        print("failed")
+
+    else:
+        conn.close()
+        return

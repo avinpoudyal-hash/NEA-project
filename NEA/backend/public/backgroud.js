@@ -5,41 +5,54 @@ var bg_window_height = window.innerHeight;
 var bg_window_width = window.innerWidth;
 
 background.style.zIndex = "-1";
-background.style.position = "absolute";
-background.style.top = '400';
-background.style.left = '500';
-background.style.width = '50%';
-background.style.height = '50%';
+background.style.position = "fixed";
+
+background.style.top = '25%';
+background.style.left = '25%';
+background.style.width = '70%';
+background.style.height = '70%';
 background.width = window.innerWidth;
 background.height = window.innerHeight;
+
 background.style.backgroundRepeat = 'no-repeat';
-background.style.backgroundSize = 'cover';
-background.style.backgroundPosition = 'center';
+
+background.style.backgroundSize = 'contain';
+
+background.style.backgroundPosition = 'right center';
+background.style.opacity = '0';
+background.style.transition = 'opacity 0.2s ease-in-out';
 
 
-const projectileButton = document.getElementById('WallTest');
+
+const projectileButton = document.getElementById('ProjButton');
 projectileButton.addEventListener('mouseover', () => {
-    background.style.backgroundImage = "url('wallTest.jpg')";
+    background.style.backgroundImage = "url('ProjImage.png')";
+    background.style.opacity = '1';
 });
 
 projectileButton.addEventListener('mouseout', () => {
-    background.style.backgroundImage = "";
+    background.style.opacity = '0';
+    //background.style.backgroundImage = "";
 });
 
 const Accel = document.getElementById('Button_accel');
 Accel.addEventListener('mouseover', () => {
-    background.style.backgroundImage = "url('acceleration.png')";
+    background.style.backgroundImage = "url('accelerationImage.png')";
+    background.style.opacity = '1';
 });
 
 Accel.addEventListener('mouseout', () => {
-    background.style.backgroundImage = "";
+    background.style.opacity = '0';
+    //background.style.backgroundImage = "";
 });
 
 const slopeHtml = document.getElementById('Slopes');
 slopeHtml.addEventListener('mouseover', () => {
     background.style.backgroundImage = "url('slopePic.png')";
+    background.style.opacity = '1';
 });
 
 slopeHtml.addEventListener('mouseout', () => {
-    slopeHtml.style.backgroundImage = "";
+    background.style.opacity = '0';
+    //background.style.backgroundImage = "";
 });
