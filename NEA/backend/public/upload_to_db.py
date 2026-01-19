@@ -45,10 +45,15 @@ def login():
         (username2, password2)
     )
     if not cursor.fetchone():
-        print("failed")
-        data = False
+        dataTF = [{"TrueFalse": False}]
         with open("mid.json", "w") as f:
-            json.dump(data, f)
+            json.dump(dataTF, f)
+            print("inputted to json")
+        print("failed")
     else:
         conn.close()
-        return
+        dataTF = [{"TrueFalse": True}]
+        with open("mid.json", "w") as f:
+            json.dump(dataTF, f)
+            print("inputted to json")
+        #return

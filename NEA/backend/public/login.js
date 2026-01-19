@@ -25,5 +25,6 @@ submitButton.addEventListener('click', () => {
             password: passwordStorage
         })
     })
+    fetch()
     })
 
