@@ -46,7 +46,9 @@ def login():
     )
     if not cursor.fetchone():
         print("failed")
-
+        data = False
+        with open("mid.json", "w") as f:
+            json.dump(data, f)
     else:
         conn.close()
         return
