@@ -44,3 +44,11 @@ input {
 #submit_button {
     background-color: #0056b3;
 }
+
+#redirect {
+    position: absolute;
+    top: 45%;
+    left: 40%;
+    text-align: center;
+
+}

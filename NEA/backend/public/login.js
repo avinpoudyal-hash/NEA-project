@@ -25,6 +25,15 @@ submitButton.addEventListener('click', () => {
             password: passwordStorage
         })
     })
-    fetch()
+    //fetch('./mid.json')
+        .then(response => response.json())
+        .then (data => {
+            data.TrueFalse
+            console.log(data)
+        })
     })
 
+async function readJSON(("./mid.json");); {
+    let response = await fetch("./mid.json")
+    return response.json();
+};

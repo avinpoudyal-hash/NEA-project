@@ -1,5 +1,6 @@
 import json
 import sqlite3
+from flask import jsonify
 
 def upload():
     # Read JSON file
@@ -45,15 +46,18 @@ def login():
         (username2, password2)
     )
     if not cursor.fetchone():
+        temp = False
         dataTF = [{"TrueFalse": False}]
         with open("mid.json", "w") as f:
             json.dump(dataTF, f)
             print("inputted to json")
         print("failed")
+        return temp
     else:
         conn.close()
+        temp = True
         dataTF = [{"TrueFalse": True}]
         with open("mid.json", "w") as f:
             json.dump(dataTF, f)
             print("inputted to json")
-        #return
+        return temp
