@@ -252,6 +252,18 @@ DrawButton.addEventListener("click", () => {  //Checks when the button is clicke
     }
 );
 
+const SignOut = document.getElementById("signOut");
+SignOut.addEventListener("click", () => {
+    loggedInProj = localStorage.getItem("login")
+    if (loggedInProj == 'true') {
+        localStorage.setItem("login", false);
+        alert("You have been signed out.");
+    }
+    else {
+        alert("You are not logged in.");
+    }
+});
+
 function elasticityUpdate() {
         requestAnimationFrame(elasticityUpdate)
         elasticityValue = document.getElementById("ElasticitySlider").value
@@ -300,16 +312,4 @@ GraphButton.addEventListener("click", () => {
         }
     }
 });
-//localStorage.setItem("SavedCount", (SavedCount))
 elasticityUpdate();
-
-/*
-so if i make localstorage for count and increment each time to 5 different arrays
-so if count == 1 { array1 }
-count == 2 { array2 } etc
-when count == 5 { array 5}
-    then count == 0
-
-
-
-*/

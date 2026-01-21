@@ -147,6 +147,17 @@ DrawButton.addEventListener("click", () => {  //Checks when the button is clicke
         moveCircle();       //Calls the moveCircle function to start the animation
     }
 });
+const SignOut = document.getElementById("signOut");
+SignOut.addEventListener("click", () => {
+    loggedInProj = localStorage.getItem("login")
+    if (loggedInProj == 'true') {
+        localStorage.setItem("login", false);
+        alert("You have been signed out.");
+    }
+    else {
+        alert("You are not logged in.");
+    }
+});
 
 const GraphButton = document.getElementById("GraphButton");
 /*GraphButton.addEventListener("click", () => {

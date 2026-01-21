@@ -336,6 +336,17 @@ GraphButton.addEventListener("click", () => {
     localStorage.setItem("SpeedArray", JSON.stringify(Array_of_x_speed));
     localStorage.setItem("y_SpeedArray", JSON.stringify(Array_of_y_speed));
 });
+const SignOut = document.getElementById("signOut");
+SignOut.addEventListener("click", () => {
+    loggedInProj = localStorage.getItem("login")
+    if (loggedInProj == 'true') {
+        localStorage.setItem("login", false);
+        alert("You have been signed out.");
+    }
+    else {
+        alert("You are not logged in.");
+    }
+});
 GraphButton.addEventListener("click", () => {
     localStorage.setItem("SpeedArray", JSON.stringify(Array_of_x_speed));
     localStorage.setItem("y_SpeedArray", JSON.stringify(Array_of_y_speed));

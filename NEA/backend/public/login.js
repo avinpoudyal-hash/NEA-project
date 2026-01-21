@@ -73,6 +73,6 @@ if (logCount == 0 && loggedIn == false) {
     title = document.getElementById("title")
     title.remove()
     redirect = document.getElementById("redirect")
-    redirect.textContent = "Number of attempts exceeeded. Create a new account here."
+    redirect.textContent = "Number of attempts exceeded. Create a new account here."
 }
 logCount = Number(localStorage.getItem("LogCount"))

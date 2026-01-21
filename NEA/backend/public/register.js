@@ -39,7 +39,9 @@ submitButton.addEventListener('click', () => {
                 password: passwordStorage
             })
         });
-        alert("Success!")
+        alert("Successfully registered!")
+        loginCount = 3
+        localStorage.setItem("LogCount", loginCount)
 
     }
 })
