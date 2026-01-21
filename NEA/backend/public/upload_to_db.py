@@ -50,8 +50,6 @@ def login():
         dataTF = [{"TrueFalse": False}]
         with open("mid.json", "w") as f:
             json.dump(dataTF, f)
-            print("inputted to json")
-        print("failed")
         return temp
     else:
         conn.close()
@@ -59,5 +57,4 @@ def login():
         dataTF = [{"TrueFalse": True}]
         with open("mid.json", "w") as f:
             json.dump(dataTF, f)
-            print("inputted to json")
         return temp

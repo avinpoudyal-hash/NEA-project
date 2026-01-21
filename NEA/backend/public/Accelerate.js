@@ -158,12 +158,7 @@ SignOut.addEventListener("click", () => {
         alert("You are not logged in.");
     }
 });
-
 const GraphButton = document.getElementById("GraphButton");
-/*GraphButton.addEventListener("click", () => {
-    localStorage.setItem("SpeedArray", JSON.stringify(Array_for_speed));
-    localStorage.setItem("y_SpeedArray", JSON.stringify(Array_of_y_speed));
-});*/
 GraphButton.addEventListener("click", () => {
     localStorage.setItem("SpeedArray", JSON.stringify(Array_of_x_speed));
     localStorage.setItem("y_SpeedArray", JSON.stringify(Array_of_y_speed));

@@ -32,7 +32,6 @@ projectileButton.addEventListener('mouseover', () => {
 
 projectileButton.addEventListener('mouseout', () => {
     background.style.opacity = '0';
-    //background.style.backgroundImage = "";
 });
 
 const Accel = document.getElementById('Button_accel');
@@ -43,7 +42,6 @@ Accel.addEventListener('mouseover', () => {
 
 Accel.addEventListener('mouseout', () => {
     background.style.opacity = '0';
-    //background.style.backgroundImage = "";
 });
 
 const slopeHtml = document.getElementById('Slopes');
@@ -54,5 +52,4 @@ slopeHtml.addEventListener('mouseover', () => {
 
 slopeHtml.addEventListener('mouseout', () => {
     background.style.opacity = '0';
-    //background.style.backgroundImage = "";
 });

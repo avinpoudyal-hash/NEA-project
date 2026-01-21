@@ -13,8 +13,6 @@ def save():
     data = request.get_json()
     username = data.get("username")
     password = data.get("password")
-    print("Username:", username)
-    print("Password:", password)
     with open("mid.json", "w") as f:
         json.dump(data, f)
     upload_to_db.upload()
@@ -25,8 +23,6 @@ def check():
     data = request.get_json()
     username = data.get("username")
     password = data.get("password")
-    print("Username:", username)
-    print("Password:", password)
     with open("mid.json", "w") as f:
         json.dump(data, f)
     result = upload_to_db.login() 

@@ -208,7 +208,6 @@ class newSquare {
             else if (this.speed < 0.05 && this.speed > -0.05){
                 let speedDecrease = (9.8 * (Math.sin(this.radians) - (this.restitution) * Math.cos(this.radians))) / 60
 
-                //let StaticFriction = (this.restitution) * Math.cos(this.radians)
                 if (this.radians > Math.atan(this.restitution) || this.restitution == 0) {
                     this.speed += speedDecrease
                     this.x_pos += this.speed

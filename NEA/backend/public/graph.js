@@ -137,7 +137,6 @@ let graph_draw_circle_yaxis = new graph_newCircle_yaxis(graph_x_pos, graph_y_pos
 
 
 function moveCircle() {     //function to animate the circle
-        //requestAnimationFrame(moveCircle);      //calls moveCircle again for the next frame
         graph_draw_circle_yaxis.drawing(graph_context);
         graph_draw_circle.drawing(graph_context);      // calls the movement function to update position and draw the circle
         first_points.drawNewWall(graph_context);
