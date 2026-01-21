@@ -278,6 +278,7 @@ checkbox3.addEventListener('change', () => {
 );   
 checkbox4.addEventListener('change', () => {
     if (pressed4 == false) {
+            pressed4 = true;
             graph_Array_for_speed = JSON.parse(localStorage.getItem("SavedArray4_x"));
             graph_Array_for_y_speed = JSON.parse(localStorage.getItem("SavedArray4_y"));
             colourX = '#814f00ff'
