@@ -2,7 +2,7 @@ var x_pos = 100
 var y_pos = 350
 var speed = 0
 elasticity = 0.6
-var Array_for_speed = []
+var Array_of_x_speed = []
 var Array_of_y_speed = []
 index = 0
 var SavedArray1_x = []
@@ -114,12 +114,12 @@ class newCircle {
             this.speed = -this.speed * this.elasticity;
             this.x_pos = 39;
         }
-        Array_for_speed[index] = this.speed;
+        Array_of_x_speed[index] = this.speed;
         index += 1;
         this.x_pos += this.speed;
         this.speed += this.acceleration / 60
-
         this.drawNew(context);      //draws the circle at the new position
+
     }
 }
 let draw_circle = new newCircle(x_pos, y_pos, speed, elasticity, acceleration)    //creates a new circle object
@@ -149,15 +149,15 @@ DrawButton.addEventListener("click", () => {  //Checks when the button is clicke
 });
 
 const GraphButton = document.getElementById("GraphButton");
-GraphButton.addEventListener("click", () => {
+/*GraphButton.addEventListener("click", () => {
     localStorage.setItem("SpeedArray", JSON.stringify(Array_for_speed));
     localStorage.setItem("y_SpeedArray", JSON.stringify(Array_of_y_speed));
-});
+});*/
 GraphButton.addEventListener("click", () => {
     localStorage.setItem("SpeedArray", JSON.stringify(Array_of_x_speed));
     localStorage.setItem("y_SpeedArray", JSON.stringify(Array_of_y_speed));
     SavedCount = Number(localStorage.getItem("SavedCount", (SavedCount)))
-    let saving = confirm("Would you like to save the graph of this simulation under Saved Values", SavedCount)
+    let saving = confirm("Would you like to save the graph of this simulation under Saved Values "+ (SavedCount + 1))
     if (saving) {
         if (SavedCount == 0) {
             localStorage.setItem("SavedArray1_x", JSON.stringify(Array_of_x_speed))

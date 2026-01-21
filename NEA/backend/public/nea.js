@@ -5,6 +5,10 @@ function Quit() {
    }
 }
 
+function checkLoginStatus() {
+  checkingLogin = localStorage.getItem("login")
+  return checkingLogin
+}
 
 function profile() {
   const ProfileButton = document.getElementById("Profile")
@@ -18,7 +22,19 @@ BackButton.addEventListener("click", () => {
     window.history.back();
 })
 
-
+const singOutButton = document.getElementById("signOut")
+singOutButton.addEventListener("click", () => {
+  checkLoginStatus()
+  if (checkingLogin == true) {
+    choice = confirm("Would you like to sign out?");
+    if (choice) {
+      logCounting = Number(localStorage.getElementById("LogCount"))
+      localStorage.setItem("LogCount", logCounting)
+      checkingLogin = false
+      localStorage.setItem("login", checkingLogin)
+    }
+  }
+})
 
 
 

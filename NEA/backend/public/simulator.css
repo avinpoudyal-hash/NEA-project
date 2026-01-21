@@ -41,6 +41,21 @@
     size: 100px, 75;
     float: right;
 }
+#signOut{
+    background-color: #ff0000;
+    font-size: 13px;
+    border: 10px, black;
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    top: 70px;
+    right: 10px;
+
+}
+#signOut:hover{
+    background-color: #a20000;
+    cursor: pointer;
+}
 #Button3{
     background-color: rgb(255, 255, 255);
     size: 500px, 500px;

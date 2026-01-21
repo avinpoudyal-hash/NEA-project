@@ -340,7 +340,7 @@ GraphButton.addEventListener("click", () => {
     localStorage.setItem("SpeedArray", JSON.stringify(Array_of_x_speed));
     localStorage.setItem("y_SpeedArray", JSON.stringify(Array_of_y_speed));
     SavedCount = Number(localStorage.getItem("SavedCount", (SavedCount)))
-    let saving = confirm("Would you like to save the graph of this simulation under Saved Values", SavedCount)
+    let saving = confirm("Would you like to save the graph of this simulation under Saved Values "+ (SavedCount + 1))
     if (saving) {
         if (SavedCount == 0) {
             localStorage.setItem("SavedArray1_x", JSON.stringify(Array_of_x_speed))

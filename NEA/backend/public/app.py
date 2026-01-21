@@ -29,8 +29,8 @@ def check():
     print("Password:", password)
     with open("mid.json", "w") as f:
         json.dump(data, f)
-    upload_to_db.login()
-    return jsonify({"status": "ok"})
+    result = upload_to_db.login() 
+    return jsonify(result)
 
 app.run(port=5000)
 print("Everything success")
