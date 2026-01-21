@@ -92,7 +92,6 @@ class xAxis {
         for (let i = 0; i <= 16; i++){
             this.drawXAxis(context);
             this.y_pos -= 50;
-            console.log("drawing the x axis", i)
         }
 }
 }
@@ -138,7 +137,6 @@ let graph_draw_circle_yaxis = new graph_newCircle_yaxis(graph_x_pos, graph_y_pos
 
 
 function moveCircle() {     //function to animate the circle
-    console.log("If you see this, this is inside the moveCircle()")
         //requestAnimationFrame(moveCircle);      //calls moveCircle again for the next frame
         graph_draw_circle_yaxis.drawing(graph_context);
         graph_draw_circle.drawing(graph_context);      // calls the movement function to update position and draw the circle
@@ -217,7 +215,6 @@ let checkbox5 = document.getElementById("pastGraphs5")
 
 checkbox1.addEventListener('change', () => {
     if (pressed == false) {
-            console.log("this should work")
             pressed = true;
             graph_Array_for_speed = JSON.parse(localStorage.getItem("SavedArray1_x"));
             graph_Array_for_y_speed = JSON.parse(localStorage.getItem("SavedArray1_y"));
@@ -225,7 +222,6 @@ checkbox1.addEventListener('change', () => {
             colourY = '#005AFF'
             moveCircle()
             drawingSaved()
-            console.log("this should be working")
     }
     else if (pressed == true) {
             pressed = false
@@ -241,14 +237,12 @@ checkbox1.addEventListener('change', () => {
 checkbox2.addEventListener('change', () => {
     if (pressed2 == false) {
             pressed2 = true;
-            console.log("this should work")
             graph_Array_for_speed = JSON.parse(localStorage.getItem("SavedArray2_x"));
             graph_Array_for_y_speed = JSON.parse(localStorage.getItem("SavedArray2_y"));
             colourX = '#FF006F'
             colourY = '#00FF90'
             moveCircle()
             drawingSaved()
-            console.log("this should be working")
     }
     else if (pressed2 == true) {
             pressed2 = false
@@ -264,14 +258,12 @@ checkbox2.addEventListener('change', () => {
 checkbox3.addEventListener('change', () => {
     if (pressed3 == false) {
             pressed3 = true;
-            console.log("this should work")
             graph_Array_for_speed = JSON.parse(localStorage.getItem("SavedArray3_x"));
             graph_Array_for_y_speed = JSON.parse(localStorage.getItem("SavedArray3_y"));
             colourX = '#F700FF'
             colourY = '#009b1cff'
             moveCircle()
             drawingSaved()
-            console.log("this should be working")
     }
     else if (pressed3 == true) {
             pressed3 = false
@@ -286,15 +278,12 @@ checkbox3.addEventListener('change', () => {
 );   
 checkbox4.addEventListener('change', () => {
     if (pressed4 == false) {
-            pressed4 = true;
-            console.log("this should work")
             graph_Array_for_speed = JSON.parse(localStorage.getItem("SavedArray4_x"));
             graph_Array_for_y_speed = JSON.parse(localStorage.getItem("SavedArray4_y"));
             colourX = '#814f00ff'
             colourY = '#4800bbff'
             moveCircle()
             drawingSaved()
-            console.log("this should be working")
     }
     else if (pressed4 == true) {
             pressed4 = false
@@ -310,14 +299,12 @@ checkbox4.addEventListener('change', () => {
 checkbox5.addEventListener('change', () => {
     if (pressed5 == false) {
             pressed5 = true;
-            console.log("this should work")
             graph_Array_for_speed = JSON.parse(localStorage.getItem("SavedArray5_x"));
             graph_Array_for_y_speed = JSON.parse(localStorage.getItem("SavedArray5_y"));
             colourX = '#810000ff'
             colourY = '#000477ff'
             moveCircle()
             drawingSaved()
-            console.log("this should be working")
     }
     else if (pressed5 == true) {
             pressed5 = false

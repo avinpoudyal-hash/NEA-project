@@ -300,7 +300,7 @@ GraphButton.addEventListener("click", () => {
         }
     }
 });
-//localStorage.setItem("SavedCount", (SavedCount))
+localStorage.setItem("SavedCount", (SavedCount))
 elasticityUpdate();
 
 /*

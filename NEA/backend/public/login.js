@@ -27,33 +27,36 @@ submitButton.addEventListener('click', async () => {
     })
     data1 = await outcome.json()
     console.log(data1)
-    logCount = Number(localStorage.getItem("LogCount"))
-    if (logCount != 1) {
+    loggedIn = localStorage.getItem("login")
+    if (logCount != 0) {
         loggedIn = localStorage.getItem("login")
-        if (loggedIn = true) {
-            alert('You are already logged in')
-        }
+        if (loggedIn == 'true') {
+        alert("You are already logged in!")
     }
-    else if (data1 == false) {
-        if (logCount == 1) {
-            username2 = document.getElementById("username")
-            alert("Number of attempts exceeded.")
-            logCount -= 1
-            localStorage.setItem("LogCount", logCount)
+    else {
+        if (data1 == false) {
+            if (logCount == 1) {
+                username2 = document.getElementById("username")
+                alert("Number of attempts exceeded.")
+                logCount -= 1
+                localStorage.setItem("LogCount", logCount)
 
+            }
+            else { 
+                logCount -= 1
+                alert("incorrect Username or Password. You have "+ logCount+ " try(ies) left")
+                localStorage.setItem("LogCount", logCount)
+                loggedIn = false
+                localStorage.setItem("login", loggedIn)
+            }
         }
-        else { 
-            logCount -= 1
-            alert("incorrect Username or Password. You have "+ logCount+ " try(ies) left")
-            localStorage.setItem("LogCount", logCount)
+        if (data1 == true) { 
+            alert("Successfully logged in!")
+            loggedIn = true
+            localStorage.setItem("login", loggedIn)
         }
-    }
-    if (data1 == true) { 
-        alert("Successfully logged in!")
-        loggedIn = true
-        localStorage.setItem("login", loggedIn)
-    }
-    })
+        }
+    }});
 
 logCount = Number(localStorage.getItem("LogCount"))
 if (logCount == 0 && loggedIn == false) {
@@ -72,4 +75,9 @@ if (logCount == 0 && loggedIn == false) {
     redirect = document.getElementById("redirect")
     redirect.textContent = "Number of attempts exceeeded. Create a new account here."
 }
-
+logCount = Number(localStorage.getItem("LogCount"))
+loggedIn = localStorage.getItem("login")
+    if (logCount != 1 && loggedIn == true) {
+        alert("You are already logged in!")
+        window.location.href = "index.html";
+    }
