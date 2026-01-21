@@ -15,33 +15,6 @@ else {
   localStorage.setItem("LogCount", 3)
   console.log("LogCount = 3")
 }
-
-let check2 = localStorage.getItem("SavedCount")
-if (check2 == 0) {
-    localStorage.setItem("SavedCount", check2)
-    console.log("check2 = 0")
-}
-if (check2 == 1) {
-    localStorage.setItem("SavedCount", check2)
-    console.log("check2 = 1")
-}
-if (check2 == 2) {
-    localStorage.setItem("SavedCount", check2)
-    console.log("check2 = 2")
-}
-if (check2 == '3') {
-    localStorage.setItem("SavedCount", check2)
-    console.log("check2 = 3")
-}
-if (check2 == '4') {
-    localStorage.setItem("SavedCount", check2)
-    console.log("check2 = 4")
-}
-//else{
-//    localStorage.setItem("SavedCount", 0)
-//    console.log("check2: "+ check2)
-//}
-
 let loginStatus = localStorage.getItem("login")
 if (loginStatus == 'true') {
     localStorage.setItem("login", true)

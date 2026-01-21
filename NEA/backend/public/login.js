@@ -76,8 +76,3 @@ if (logCount == 0 && loggedIn == false) {
     redirect.textContent = "Number of attempts exceeeded. Create a new account here."
 }
 logCount = Number(localStorage.getItem("LogCount"))
-loggedIn = localStorage.getItem("login")
-    if (logCount != 1 && loggedIn == true) {
-        alert("You are already logged in!")
-        window.location.href = "index.html";
-    }
