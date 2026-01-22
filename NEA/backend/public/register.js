@@ -42,6 +42,7 @@ submitButton.addEventListener('click', () => {
         alert("Successfully registered!")
         loginCount = 3
         localStorage.setItem("LogCount", loginCount)
+        window.location.href = "login.html"
 
     }
 })

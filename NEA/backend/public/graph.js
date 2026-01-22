@@ -135,10 +135,10 @@ let graph_draw_circle = new graph_newCircle(graph_x_pos, graph_y_pos)    //creat
 let graph_draw_circle_yaxis = new graph_newCircle_yaxis(graph_x_pos, graph_y_pos)    //creates a new circle object
 
 
-
-function moveCircle() {     //function to animate the circle
+//No longer animates or moves circle. only draws points on the graph (x/y axis)
+function moveCircle() {
         graph_draw_circle_yaxis.drawing(graph_context);
-        graph_draw_circle.drawing(graph_context);      // calls the movement function to update position and draw the circle
+        graph_draw_circle.drawing(graph_context);      
         first_points.drawNewWall(graph_context);
         second_points.drawNewWall(graph_context);
         third_points.drawNewWall(graph_context);
@@ -149,6 +149,7 @@ function moveCircle() {     //function to animate the circle
         drawWall.drawNewWall(graph_context);
 }
 
+//Draws whatever graphs was recently simulated.
 function drawingFunction(){
             graph_index = 0
             graph_index_y = 0
@@ -160,7 +161,9 @@ function drawingFunction(){
             graph_draw_circle_yaxis.drawing(graph_context);
             graph_draw_circle.drawing(graph_context);
 }
-function drawingSaved() {
+
+//Draws passed saved graphs with transparency. 
+function drawingSaved() { 
             graph_index = 0
             graph_index_y = 0
             alphaLevel = 0.4
@@ -169,8 +172,10 @@ function drawingSaved() {
             graph_draw_circle_yaxis.drawing(graph_context);
             graph_draw_circle.drawing(graph_context);
 }
+
+//colours and draws saved graphs based on which checkboxes are ticked. (1 - 5)
 function CheckingGraphs() {
-    if (pressed == true) {
+    if (pressed == true) { 
         colourX = '#FFA500'
         colourY = '#005AFF'
         graph_Array_for_speed = JSON.parse(localStorage.getItem("SavedArray1_x"));
@@ -206,13 +211,14 @@ function CheckingGraphs() {
         drawingSaved()
     }
 }
-let checkbox1 = document.getElementById("pastGraphs1")
-let checkbox2 = document.getElementById("pastGraphs2")
-let checkbox3 = document.getElementById("pastGraphs3")
-let checkbox4 = document.getElementById("pastGraphs4")
-let checkbox5 = document.getElementById("pastGraphs5")
+let checkbox1 = document.getElementById("pastGraphs1") // checkbox for saved graph 1
+let checkbox2 = document.getElementById("pastGraphs2") // checkbox for saved graph 2
+let checkbox3 = document.getElementById("pastGraphs3") // checkbox for saved graph 3
+let checkbox4 = document.getElementById("pastGraphs4") // checkbox for saved graph 4
+let checkbox5 = document.getElementById("pastGraphs5") // checkbox for saved graph 5
 
-checkbox1.addEventListener('change', () => {
+// Checks to see when each checbox has been ticked. COPIED FOR ALL 5 CHECKBOXES WITH MINOR CHANGES
+checkbox1.addEventListener('change', () => { 
     if (pressed == false) {
             pressed = true;
             graph_Array_for_speed = JSON.parse(localStorage.getItem("SavedArray1_x"));
@@ -318,6 +324,7 @@ checkbox5.addEventListener('change', () => {
     }
 ); 
 
+//initial drawing of the graph walls
 drawWall.drawNewWall(graph_context);
 first_points.drawNewWall(graph_context);
 second_points.drawNewWall(graph_context);

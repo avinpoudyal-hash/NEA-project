@@ -16,7 +16,7 @@ var SavedArray4_y = []
 var SavedArray5_x = []
 var SavedArray5_y = []
 var SavedCount = 0
-
+var CircleDrawn = false
 var isPaused = false;
 var acceleration = 0;
 
@@ -142,17 +142,21 @@ function moveCircle() {     //function to animate the circle
 
 const DrawButton = document.getElementById("Draw");     //Gets the Draw button from the HTML
 DrawButton.addEventListener("click", () => {  //Checks when the button is clicked
-    if (input() == true){       //Calls the input function to get speed from user
-        draw_circle.acceleration = acceleration;  //updates the circle's acceleration with the user input
-        moveCircle();       //Calls the moveCircle function to start the animation
-    }
+    if (CircleDrawn == false) {
+        if (input() == true){       //Calls the input function to get speed from user
+            draw_circle.acceleration = acceleration;  //updates the circle's acceleration with the user input
+            moveCircle();       //Calls the moveCircle function to start the animation
+            CircleDrawn = true;
+        }
+        }
 });
 const SignOut = document.getElementById("signOut");
 SignOut.addEventListener("click", () => {
     loggedInProj = localStorage.getItem("login")
     if (loggedInProj == 'true') {
         localStorage.setItem("login", false);
-        alert("You have been signed out.");
+        localStorage.setItem("LogCount", 3);
+        alert("You have been logged out.");
     }
     else {
         alert("You are not logged in.");

@@ -257,7 +257,8 @@ SignOut.addEventListener("click", () => {
     loggedInProj = localStorage.getItem("login")
     if (loggedInProj == 'true') {
         localStorage.setItem("login", false);
-        alert("You have been signed out.");
+        localStorage.setItem("LogCount", 3);
+        alert("You have been logged out.");
     }
     else {
         alert("You are not logged in.");

@@ -7,9 +7,7 @@ let timer = 0
 let gravity = 0
 let friction = 0
 let SquareDrawn = false
-friction = ((mass * 9.8) * restitution) / 60 //PER FRAME FRICTION DECREASING MOMENTUM   0.735
-momentum = (speed * mass) * 60 //INITIAL MOMENTUM   (assume speed = 12)  3600
-Momentum_decrease_via_friction = 0
+friction = ((mass * 9.8) * restitution) / 60
 let index = 0
 var Array_of_y_speed = []
 var Array_of_x_speed = []
@@ -17,7 +15,6 @@ var theta = 60
 var radians = 0
 var initial_x_speed = 0;
 var initial_y_speed = 0;
-var gravityAdditionX = 0
 var LineC = 0
 var LineX = 0
 var LineM = 0
@@ -175,17 +172,20 @@ class newSquare {
         context.restore()
     }
     movement(context){  //function to move the Square
+        // ANYTHING RELATED TO MOTION GOES HERE
+        // IF STATEMENT CONTAINS 'LINEC/X/Y/M' TO GET THE LINE EQUATION OF THE SLOPE
         let LineX1 = drawTriangle.point1_x;
         let LineY1 = drawTriangle.point1_y;
         let LineX2 = drawTriangle.point2_x;
         let LineY2 = drawTriangle.point2_y;
         this.LineC = 655 - (LineX2 * (Math.tan(this.radians)))
         this.LineM = LineM = -((LineY2 - LineY1) / (LineX2 - LineX1))
-        let SlopeYValue = (-this.LineM * this.x_pos) +this.LineC
+        let SlopeYValue = (-this.LineM * this.x_pos) +this.LineC //gets the y value of the slope at the Square's current x position
         this.y_pos += this.gravity;
 
-        let nextSlopeY = (-this.LineM * this.x_pos) + this.LineC;
-
+        let nextSlopeY = (-this.LineM * this.x_pos) + this.LineC; //gets the y value of the slope at the Square's next x position
+                                                                  //USED TO CHECK IF NEXT POSITIONS IS 'INSIDE' SLOPE
+        // COLLISION DETECTION
         if (SlopeYValue > this.y_pos + 55) {
             this.gravity += 0.1633333333;
             Array_of_y_speed[index] = this.gravity;
@@ -198,7 +198,7 @@ class newSquare {
                 let speedDecrease = (9.8 * (Math.sin(this.radians) - (this.restitution) * Math.cos(this.radians))) / 60
                 this.speed += speedDecrease
                 this.x_pos += this.speed
-                this.gravity = 10000
+                this.gravity = 10000 //Sets gravity extremely high, to 'stick' square to slope. No effect to calculations
             }
             else if (this.speed < -0.05) {
                 let speedDecrease = (9.8  *(Math.sin(this.radians) + (this.restitution) * Math.cos(this.radians))) / 60
@@ -243,6 +243,7 @@ class newTriangle {
     }
 
     drawNewTriangle(context){ //POINT 2 X AND Y ARE CONSTANT NEVER CHANGE THEM!!!!
+        //4 points used here to make sure a triangle that goes off the screen is correctly filled.
         this.updatePoints();
         context.beginPath()
         context.strokeStyle = "black"
@@ -340,12 +341,15 @@ SignOut.addEventListener("click", () => {
     loggedInProj = localStorage.getItem("login")
     if (loggedInProj == 'true') {
         localStorage.setItem("login", false);
-        alert("You have been signed out.");
+        localStorage.setItem("LogCount", 3);
+        alert("You have been logged out.");
     }
     else {
         alert("You are not logged in.");
     }
 });
+
+// All of the below code is for saving graphs to "SavedArray1-5_x/y"
 GraphButton.addEventListener("click", () => {
     localStorage.setItem("SpeedArray", JSON.stringify(Array_of_x_speed));
     localStorage.setItem("y_SpeedArray", JSON.stringify(Array_of_y_speed));
