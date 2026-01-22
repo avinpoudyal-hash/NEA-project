@@ -114,6 +114,11 @@ class newCircle {
             this.speed = -this.speed * this.elasticity;
             this.x_pos = 39;
         }
+        if (this.speed < 0.02 && this.speed > -0.02 && this.x_pos + 40 >= canvas.width) {   //checks if speed is very low
+            this.speed = 0;   
+            this.acceleration = 0; 
+        }
+        Array_of_y_speed[index] = 0;   //y speed is always 0 in this simulation
         Array_of_x_speed[index] = this.speed;
         index += 1;
         this.x_pos += this.speed;

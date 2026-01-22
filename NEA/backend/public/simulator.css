@@ -386,7 +386,7 @@ body {
 }
 #pastGraphs2 {
     position: absolute;
-    top: 80px;
+    top: 95px;
     right: 10px;
     width: 30px;
     height: 30px;
@@ -394,22 +394,58 @@ body {
 
 #pastGraphs3 {
     position: absolute;
-    top: 100px;
+    top: 130px;
     right: 10px;
     width: 30px;
     height: 30px;
 }
 #pastGraphs4 {
     position: absolute;
-    top: 120px;
+    top: 165px;
     right: 10px;
     width: 30px;
     height: 30px;
 }
 #pastGraphs5 {
     position: absolute;
-    top: 140px;
+    top: 200px;
     right: 10px;
     width: 30px;
     height: 30px;
+}
+
+#Saved1Tag {
+    position: absolute;
+    top: 69px;
+    right: 50px;
+    font-size: 14px;
+    color: #000000;
+}
+#Saved2Tag {
+    position: absolute;
+    top: 104px;
+    right: 50px;
+    font-size: 14px;
+    color: #000000;
+}
+#Saved3Tag {
+    position: absolute;
+    top: 139px;
+    right: 50px;
+    font-size: 14px;
+    color: #000000;
+}
+#Saved4Tag {
+    position: absolute;
+    top: 174px;
+    right: 50px;
+    font-size: 14px;
+    color: #000000;
+}
+#Saved5Tag {
+    position: absolute;
+    top: 209px;
+    right: 50px;
+    font-size: 14px;
+    color: #000000;
 }
