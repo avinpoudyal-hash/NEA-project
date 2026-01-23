@@ -186,6 +186,9 @@ class newCircle {
         if (this.speed > -0.05 && this.speed < 0.05) {
             this.speed = 0
         }
+        if (this.gravity > -0.17 && this.gravity < 0.17 && this.y_pos + 30 >= 655) {
+            this.gravity = 0
+        }
         Array_of_x_speed[index] = this.speed;
         Array_of_y_speed[index] = this.gravity;
         index += 1;

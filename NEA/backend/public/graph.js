@@ -288,8 +288,8 @@ checkbox4.addEventListener('change', () => {
             graph_Array_for_y_speed = JSON.parse(localStorage.getItem("SavedArray4_y"));
             colourX = '#814f00ff'
             colourY = '#4800bbff'
-            moveCircle()
             drawingSaved()
+            moveCircle()
     }
     else if (pressed4 == true) {
             pressed4 = false
@@ -309,7 +309,6 @@ checkbox5.addEventListener('change', () => {
             graph_Array_for_y_speed = JSON.parse(localStorage.getItem("SavedArray5_y"));
             colourX = '#810000ff'
             colourY = '#000477ff'
-            moveCircle()
             drawingSaved()
     }
     else if (pressed5 == true) {
