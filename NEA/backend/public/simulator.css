@@ -328,7 +328,7 @@ body {
 #speedKey {
     position: absolute;
     bottom: 50px;
-    left: 1300px;
+    left: 1250px;
     font-size: 20x;
     color: #ff0000;
     z-index: 10;
@@ -336,7 +336,7 @@ body {
 #gravityKey {
     position: absolute;
     bottom: 10px;
-    left: 1300px;
+    left: 1250px;
     font-size: 16px;
     color: #0000ff;
     z-index: 10;

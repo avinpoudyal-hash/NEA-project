@@ -176,7 +176,7 @@ function drawingSaved() {
 //colours and draws saved graphs based on which checkboxes are ticked. (1 - 5)
 function CheckingGraphs() {
     if (pressed == true) { 
-        colourX = '#FFA500'
+        colourX = '#ff4d00ff'
         colourY = '#005AFF'
         graph_Array_for_speed = JSON.parse(localStorage.getItem("SavedArray1_x"));
         graph_Array_for_y_speed = JSON.parse(localStorage.getItem("SavedArray1_y"));
@@ -184,28 +184,28 @@ function CheckingGraphs() {
     }
     if (pressed2 == true) {
         colourX = '#FF006F'
-        colourY = '#00FF90'
+        colourY = '#00ffc8ff'
         graph_Array_for_speed = JSON.parse(localStorage.getItem("SavedArray2_x"));
         graph_Array_for_y_speed = JSON.parse(localStorage.getItem("SavedArray2_y"));
         drawingSaved()
     }
     if (pressed3 == true) {
-        colourX = '#F700FF'
-        colourY = '#009b1cff'
+        colourX = '#ff00bfff'
+        colourY = '#009b7fff'
         graph_Array_for_speed = JSON.parse(localStorage.getItem("SavedArray3_x"));
         graph_Array_for_y_speed = JSON.parse(localStorage.getItem("SavedArray3_y"));
         drawingSaved()
     }
     if (pressed4 == true) {
-        colourX = '#814f00ff'
-        colourY = '#4800bbff'
+        colourX = '#810025ff'
+        colourY = '#0051bbff'
         graph_Array_for_speed = JSON.parse(localStorage.getItem("SavedArray4_x"));
         graph_Array_for_y_speed = JSON.parse(localStorage.getItem("SavedArray4_y"));
         drawingSaved()
     }
     if (pressed5 == true) {
-        colourX = '#810000ff'
-        colourY = '#000477ff'
+        colourX = '#b80000ff'
+        colourY = '#0006a9ff'
         graph_Array_for_speed = JSON.parse(localStorage.getItem("SavedArray5_x"));
         graph_Array_for_y_speed = JSON.parse(localStorage.getItem("SavedArray5_y"));
         drawingSaved()
@@ -223,7 +223,7 @@ checkbox1.addEventListener('change', () => {
             pressed = true;
             graph_Array_for_speed = JSON.parse(localStorage.getItem("SavedArray1_x"));
             graph_Array_for_y_speed = JSON.parse(localStorage.getItem("SavedArray1_y"));
-            colourX = '#FFA500'
+            colourX = '#ff4d00ff'
             colourY = '#005AFF'
             moveCircle()
             drawingSaved()
@@ -245,7 +245,7 @@ checkbox2.addEventListener('change', () => {
             graph_Array_for_speed = JSON.parse(localStorage.getItem("SavedArray2_x"));
             graph_Array_for_y_speed = JSON.parse(localStorage.getItem("SavedArray2_y"));
             colourX = '#FF006F'
-            colourY = '#00FF90'
+            colourY = '#00ffc8ff'
             moveCircle()
             drawingSaved()
     }
@@ -265,8 +265,8 @@ checkbox3.addEventListener('change', () => {
             pressed3 = true;
             graph_Array_for_speed = JSON.parse(localStorage.getItem("SavedArray3_x"));
             graph_Array_for_y_speed = JSON.parse(localStorage.getItem("SavedArray3_y"));
-            colourX = '#F700FF'
-            colourY = '#009b1cff'
+            colourX = '#ff00bfff'
+            colourY = '#009b7fff'
             moveCircle()
             drawingSaved()
     }
@@ -286,8 +286,8 @@ checkbox4.addEventListener('change', () => {
             pressed4 = true;
             graph_Array_for_speed = JSON.parse(localStorage.getItem("SavedArray4_x"));
             graph_Array_for_y_speed = JSON.parse(localStorage.getItem("SavedArray4_y"));
-            colourX = '#814f00ff'
-            colourY = '#4800bbff'
+            colourX = '#810025ff'
+            colourY = '#0051bbff'
             drawingSaved()
             moveCircle()
     }
@@ -307,8 +307,8 @@ checkbox5.addEventListener('change', () => {
             pressed5 = true;
             graph_Array_for_speed = JSON.parse(localStorage.getItem("SavedArray5_x"));
             graph_Array_for_y_speed = JSON.parse(localStorage.getItem("SavedArray5_y"));
-            colourX = '#810000ff'
-            colourY = '#000477ff'
+            colourX = '#b80000ff'
+            colourY = '#0006a9ff'
             drawingSaved()
     }
     else if (pressed5 == true) {

@@ -30,6 +30,7 @@ var SavedArray4_y = []
 var SavedArray5_x = []
 var SavedArray5_y = []
 var SavedCount = 0
+var y_speed = 0
 
 var isPaused = false;
 
@@ -144,7 +145,7 @@ function LineEquation(){
 }
 
 class newSquare {
-    constructor(x_pos, y_pos, speed, gravity, mass, friction, restitution, radians, LineC, LineM, LineX, gravityStorage){   //constructor function to set up the Square
+    constructor(x_pos, y_pos, speed, gravity, mass, friction, restitution, radians, LineC, LineM, LineX, gravityStorage, y_speed){   //constructor function to set up the Square
     this.x_pos = x_pos
     this.y_pos = y_pos
     this.speed = speed
@@ -157,6 +158,7 @@ class newSquare {
     this.LineX = LineX
     this.LineM = LineM
     this.gravityStorage = gravityStorage
+    this.y_speed = y_speed
     }
     drawNew(context){   //function to draw the Square
         context.save()
@@ -216,10 +218,11 @@ class newSquare {
                     this.speed = 0
                 }
             }
-            Array_of_y_speed[index] = (this.speed * Math.tan(this.radians));
+            this.y_speed = (this.speed * Math.tan(this.radians));
+            Array_of_y_speed[index] = this.y_speed;
+            Array_of_x_speed[index] = this.speed;
             index += 1;
         }
-        Array_of_x_speed[index] = this.speed;
         this.drawNew(context);      //draws the Square at the new position
         context.fillStyle = 'red'
         context.fillRect(0, 655, canvas.width, canvas.height - 655); // Draws the ground
@@ -270,7 +273,7 @@ class newTriangle {
     }
 }
 
-let draw_square = new newSquare(x_pos, y_pos, speed, gravity, mass, friction, restitution, radians, LineC, LineX, LineM, gravityStorage)    //creates a new Square object
+let draw_square = new newSquare(x_pos, y_pos, speed, gravity, mass, friction, restitution, radians, LineC, LineX, LineM, gravityStorage, y_speed)    //creates a new Square object
 let drawTriangle = new newTriangle(0, 200, 2 * canvas.width/3, 655, 0, 655, 0, 0, radians)
 let drawBounds = new newTriangle(0,0, canvas.width, 0, canvas.width, 655, 0, 655)
 
@@ -287,8 +290,8 @@ function drawObjects() {     //function to animate the Square
         drawBounds.drawNewBounds(context)
         const speedDisplay = document.getElementById("SpeedValue");
         speedDisplay.textContent = draw_square.speed.toFixed(2);
-        const FrictionTag = document.getElementById("FrictionValue");
-        FrictionTag.textContent = frictionValue
+        const YspeedDisplay = document.getElementById("YSpeedValue");
+        YspeedDisplay.textContent = draw_square.y_speed.toFixed(2);
     }
 }
 
@@ -315,7 +318,7 @@ DrawButton.addEventListener("click", () => {  //Checks when the button is clicke
             draw_square.gravity = 0;
             draw_square.gravityStorage = initial_y_speed
             draw_square.restitution = frictionValue
-            alert("Initial X Speed: " + initial_x_speed.toFixed(2) + "Initial Y Speed: " + (-initial_y_speed).toFixed(2));
+            alert("Initial X Speed: " + initial_x_speed.toFixed(2) + "  Initial Y Speed: " + (-initial_y_speed).toFixed(2));
             drawObjects();       //Calls the drawObjects function to start the animation
             SquareDrawn = true;
         }

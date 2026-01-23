@@ -58,17 +58,19 @@ function input(){
     }
     verify = Number(theta);     //converts input to number for verification
     if (!Number.isFinite(verify)) {     //checks if input is a valid number
-        alert("Invalid value inputted, setting to 0");
+        alert("Invalid value inputted, cancelling...");
         theta = 0;  //sets speed to 0 if invalid
         return false;
     }
     if (verify < 0) {   //checks if input is less than 0
         alert("Under 0 inputted, setting to 0");    //alerts user
         theta = 0;  //sets speed to 0
+        radians = theta * (Math.PI / 180);
     }
     if (verify > 90){   //checks if input is greater than 15
         alert("number too high, setting to 90")     //alerts user
-        theta = 90;     //sets speed to 15 (max speed)
+        theta = 90;    
+        radians = theta * (Math.PI / 180);
     }
     if (verify >= 0 && verify <=90) {   //valid input range
         theta = verify;     //sets speed to inputted value
@@ -82,7 +84,7 @@ function input(){
     }
     verify = Number(speed);     //converts input to number for verification
     if (!Number.isFinite(verify)) {     //checks if input is a valid number
-        alert("Invalid value inputted, setting to 0");
+        alert("Invalid value inputted, cancelling...");
         speed = 0;  //sets speed to 0 if invalid
         return false;
     }
@@ -94,6 +96,8 @@ function input(){
     if (verify > 50){   //checks if input is greater than 15
         alert("number too high, setting to 50")     //alerts user
         speed = 50;     //sets speed to 15 (max speed)
+        initial_x_speed = speed * Math.cos(radians);
+        initial_y_speed = speed * Math.sin(radians);
     }
     if (verify >= 0 && verify <=50) {   //valid input range
         speed = verify;     //sets speed to inputted value
