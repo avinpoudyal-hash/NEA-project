@@ -1,0 +1,112 @@
+Converting Floating point to denary
+
+- How many is on the mantissa? (lhs)
+- How many is on the exponent? (rhs)
+Binary point goes after the first value
+- TWOS COMPLEMENT
+  - 1 is negative, 0 is positive
+1. write out mantissa with binary
+2. work out the shift via exponent
+  - Shift by however many digits the exponent is
+E.g.
+0101111 0010
+= 0.10111 x 2^2
+= 010.111 = + 2 7/8
+************************************************
+01010 011
+0.1010 -> 3
+0101.0 = 5
+
+10111 010
+1.0111 -> 2
+101.11 = -4 + 1 + 3/4 = -2 1/4
+
+10001 111
+1.0001 -> -1
+1.10001 = -1 + 17/32 = -15/32
+
+NEW QUESTION (6b mantissa, 4b exponent)
+100110 1110
+1.00110 -> -2
+1.1100110 = -1 + 1/2 + 1/4 + 1/32 + 1/64 = -1 + (32 + 16 + 2 + 1 = 51/64) = -13/64
+
+NORMALISATION
+Writing the number the most efficiently for memory
+More for mantissa means less for exponent
+Mantissa + means more range, exponent + means more accuracy
+
+the first 2 digits are different if it is normalised
+(01 for +, 10 for -)
+
+Converting denary to binary
++Normalisation
+E.g.
++6 1/4
+0110.01 x 2
+= 0.11001 x 2^3 -> exponent changed to 3 so the binary point moves back to original
+= 011001 0011
+
+-8 1/2
+10111.1
+= 1.01111 x 2^4
+= 1.01111 0100
+
+Qs
+-15 3/4
+8b mantissa 4b exponent
+= 10000.01
+= 1.000001 x 2^4
+= 1.0000010 0100
+
+1 5/8
+5b mantissa 3b exponent
+01.101
+0.1101 x 2^1
+0.1101 001
+
+-9 1/8
+8b mantissa 4b exponent
+10110.111
+1.0110111 x 2^4
+1.0110111 0100
+
+ADDITION
+- Always convert to regular, 2^0 form
+  - NO EXPONENT IN THE ADDITION
+E.g.
+01001100 0011 - 01001010 0010
+So:
+0.10011 x 2^3          0.100101 X 2^2
+= 0100.11 (1)          = 010.0101 (2)
+
+  0100.1100 (1)-
+  0010.0101 (2)
+‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+conversion to negative for (2)
+= 101.1011
+So:
+  0100.1100 (1)-
+   101.1011 (2)
+‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+(1)010.0111
+  1 1  1
+= 010.0111
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
