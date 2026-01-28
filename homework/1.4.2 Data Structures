@@ -1,0 +1,15 @@
+1. ***Linked List***
+A data structure that has nodes and pointers
+- Each node has both data and pointer
+  - the pointer directs the list to the next value in the list
+A Circular linked list can be made by having the final pointer go back to the first value in the list
+Can be through a STATIC array -> they are a fixed size and cannot be made larger/smaller
+OR
+Can be used through OOP
+- Any available memory address can be used to store data
+
+- Can be used by the operating system managing a processor
+- image viewers
+- music players
+- web browsers
+Can also be used as hash table collision overflow
