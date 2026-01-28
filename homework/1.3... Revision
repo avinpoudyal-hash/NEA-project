@@ -1,0 +1,28 @@
+Referential integrity
+for databases -> as users can be given different access rights, to either query or search, or delete and manipulate records
+Multiple transactions occur
+-> could lead to inconsistent databases
+The Database Management system makes sure it is consistent
+Through DATA INTEGRITY
+'Maintenance and consistency of data in a database' 
+Ensuring data integrity in a relational database is known as referential integrity
+Removing employee:
+- Delete record in the employee_details table
+- then remove from employee_salary -> could lead to errors
+This can be made worse if they are referenced in other tables.
+INCONSISTENT DATA ^
+one way to maintain it, is to have 'cascade delete'
+- Means that if an employee is deleted from one table, all references to it are also deleted
+Referential integrity, also means that  you cannot add a record if there is no matching reference in another table
+
+TRANSACTION PROCESSING
+any information processing that is divided into individual 'transactions'
+Create
+Read
+Update
+Delete
+
+Atomicity - either all of the data goes through, or none of it does. this means there cannot be any partially saved data
+Consistency - Any changes on a database must keep the database structure
+Isolation - you can only perform 1 transaction at a time, so another transaction cannot interrupt a currently ongoing one (RECORD LOCKING)
+Durability - Once a change is made, it must not be lost due to a system failure.
