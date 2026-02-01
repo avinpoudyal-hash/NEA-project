@@ -1,4 +1,4 @@
-1. ***Linked List***
+1. Linked List
 A data structure that has nodes and pointers
 - Each node has both data and pointer
   - the pointer directs the list to the next value in the list
@@ -13,3 +13,13 @@ Can be used through OOP
 - music players
 - web browsers
 Can also be used as hash table collision overflow
+
+2. Graphs
+A data structure that has vertices and edges
+each vertex can have more than 2 edges
+- can either point in a direction (directed) or just a line (undirected)
+Graphs can be weighted, with each edge given a value
+^ required for things like dijkstras algorithm
+
+3. Stacks
+Items are 'pushed' onto the top of the stack, and are 'popped' from the top of the stack
